@@ -1,4 +1,4 @@
-# wahyuproject
+# Wahyu Project
 
 - Welcome to Wahyu Brand Website GitHub Project
 - Wahyu Brand Main Website
