@@ -7,7 +7,8 @@
 - Sales Order System
     - Connect all modules together
     wahyuproject-instance
-    wahyu12345
+    user: root
+    pw: wahyu12345
     db: wahyu_db
     
     wahyuproject-253604:asia-southeast1:wahyuproject-instance
@@ -17,3 +18,6 @@
     
     virtaulenv: pywahyu
     project: wahyuproject
+
+    superuser: wahyu
+    pw: wahyu12345

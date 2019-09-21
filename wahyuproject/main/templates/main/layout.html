@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{{title}}</title>
+  <meta name="description" content="Wahyu Brand produces the best Sambal, Instant Pastes and Rempeyek in Singapore. Now, also available in Malaysia">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Raleway&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static "css/materialize.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static "css/style.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="{% static "favicon/apple-icon-57x57.png" %}" >
+  <link rel="apple-touch-icon" sizes="60x60" href="{% static "favicon/apple-icon-60x60.png" %}" >
+  <link rel="apple-touch-icon" sizes="72x72" href="{% static "favicon/apple-icon-72x72.png" %}" >
+  <link rel="apple-touch-icon" sizes="76x76" href="{% static "favicon/apple-icon-76x76.png" %}" >
+  <link rel="apple-touch-icon" sizes="114x114" href="{% static "favicon/apple-icon-114x114.png" %}" >
+  <link rel="apple-touch-icon" sizes="120x120" href="{% static "favicon/apple-icon-120x120.png" %}" >
+  <link rel="apple-touch-icon" sizes="144x144" href="{% static "favicon/apple-icon-144x144.png" %}" >
+  <link rel="apple-touch-icon" sizes="152x152" href="{% static "favicon/apple-icon-152x152.png" %}" >
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static "favicon/apple-icon-180x180.png" %}" >
+  <link rel="icon" type="image/png" sizes="192x192"  href="{% static "favicon/android-icon-192x192.png" %}" >
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static "favicon/favicon-32x32.png" %}" >
+  <link rel="icon" type="image/png" sizes="96x96" href="{% static "favicon/favicon-96x96.png" %}" >
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static "favicon/favicon-16x16.png" %}" >
+  <link rel="manifest" href="{% static "favicon/manifest.json" %}" >
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="{% static "favicon/ms-icon-144x144.png" %}" >
+  <meta name="theme-color" content="#ffffff">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141216963-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-141216963-1');
+  </script>
+
+</head>
+
+<body>
+
+{% block content %}
+{% endblock %}
+ 
+  </body>   
+
+   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+   <script src="{% static "js/materialize.js" %}"></script>
+   <script src="{% static "js/init.js" %}"></script>
+
+     <footer class="page-footer deep-orange darken-3" id="footer">
+        <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text">Wahyu Delicacies Rempeyek Trading</h5>
+              <p class="grey-text text-lighten-4">52 International Road</br>#03-06 Par Investments Building</br>Singapore 619626</br><i class="tiny material-icons">work</i>UEN No.: 53127489J</p>
+              
+            </div>
+            <div class="col l4 s12">
+              <h5 class="white-text">Contact Us</h5>
+              <ul>
+                <li><i class="tiny material-icons">phone_in_talk</i>Sales: <a class="white-text" href="tel:+6581831445"><b>+65 8183 1445</b></a></li>
+                <li><i class="tiny material-icons">face</i>Customer Service: <a class="white-text" href="tel:+6569108515"><b>+65 6910 8515</b></a></li>
+                <li><i class="tiny material-icons">email</i>Email: <a class="white-text" href="mailto:info@wahyubrand.com"><b>info@wahyubrand.com</b></a></li>
+                
+              </ul>
+            </div>
+            <div class="col l2 s12">
+              <h5 class="white-text">Connect</h5>
+              
+                <a class="white-text" style="font-size: 2em; color: Tomato;" href="https://www.facebook.com/WahyuDelicaciesRempeyekTrading"><i class="fab fa-facebook"></i></a>
+                <a class="white-text" style="font-size: 2em; color: Tomato;margin-left: 2px;" href="https://www.instagram.com/info.wahyubrand"><i class="fab fa-instagram"></i></a>
+                <a class="white-text" style="font-size: 2em; color: Tomato;margin-left: 2px;" href="https://www.youtube.com/channel/UC5U5yezdaGtgiVt2rlSJAHw/featured"><i class="fab fa-youtube"></i></a>
+                <a class="white-text" style="font-size: 2em; color: Tomato;margin-left: 2px;" href="https://wa.me/6569108515"><i class="fab fa-whatsapp"></i></a>
+                
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright brown darken-1">
+            <div class="container">
+            <div style="float:left;">Made by <a class="brown-text text-lighten-3" href="">MNoobs.com</a></div><div style="float:right;"><a class="brown-text text-lighten-3" href="sitemap.html">Sitemap</a></div>
+            </div>
+          </div>
+        </footer>
+</html>

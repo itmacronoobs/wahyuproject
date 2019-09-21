@@ -1,0 +1,892 @@
+
+ {% extends 'products/layout.html' %}
+ {% load staticfiles %}
+ {% block content %}
+
+ <div class="navbar-fixed">
+    <nav class="green lighten-5" role="navigation">
+      <div class="nav-wrapper container">
+          <a id="logo-container" href="{% url 'index' %}" class="brand-logo"><img style="margin-top: 5px;margin-right: 5px;" src="{% static "img/logo-transparent-100px.png" %}" width="50px" height="50px" alt=""></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="{% url 'index' %}#aboutus">About Us</a></li>
+          <li><a href="{% url 'index' %}#sambal">Sambal</a></li>
+          <li><a href="{% url 'index' %}#paste">Paste</a></li>
+          <li><a href="{% url 'index' %}#rempeyek">Rempeyek</a></li>
+          <li><a href="{% url 'index' %}#footer">Contact Us</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li class="teal lighten-4"><a href="#">Buy Now</a></li>
+        </ul>
+  
+        
+        <a class="hide-on-med-and-up black-text right" href="#">Buy Now</a>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+  </div>
+  
+  <ul id="nav-mobile" class="sidenav">
+      <li><a href="#">Homepage</a></li>
+      <li><a href="{% url 'index' %}#aboutus">About Us</a></li>
+      <li><a href="{% url 'index' %}#sambal">Sambal</a></li>
+      <li><a href="{% url 'index' %}#paste">Paste</a></li>
+      <li><a href="{% url 'index' %}#rempeyek">Rempeyek</a></li>
+      <li><a href="{% url 'index' %}#footer">Contact Us</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="#">Buy Now</a></li>
+  </ul>
+  
+
+
+ <div class="parallax-container valign-wrapper">
+        
+          <div class="container">
+            <div class="row center">
+              <h1  style="font-size:30px;"class="header col s12 light">Wahyu Brand Order Form</h1>
+              <p>(Max. 8 line items per order)</p>
+            </div>
+          </div>
+        
+        <div class="parallax"><img src="{% static "img/tanushree-rao-1172284-unsplash.jpg" %}" height="900px" alt="Unsplashed background img 3"></div>
+      </div>
+
+      <div class="container">
+          <div class="section no-pad-bot">
+        
+            <ul class="collapsible popout data-collapsible="accordion">
+                <li class="active">
+                  <div class="collapsible-header"><i class="material-icons">face</i>Contact<div style="margin-left:auto;margin-right:0;"><span id="name_input"></span></div></div>
+                  <div class="collapsible-body">
+                                <form>
+                                  <div class="row">
+                                    <div class="input-field col s4">
+                                      <input id="name" type="text" class="validate" onchange="updateName()">
+                                      <label for="name">Full Name</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                      <input id="contactno" type="text" class="validate">
+                                      <label for="contactno">Contact No.</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                            <input id="email" type="email" class="validate">
+                                            <label for="email">Email</label>
+                                          </div>
+                                  </div>
+                                  <div class="row">
+                                        <div class="input-field col s6">
+                                        <h5>How did you hear about us?</h5>
+                                        <p>
+                                        <label>
+                                            <input id ="google" type="checkbox" />
+                                            <span>Google Search</span>
+                                            <input id="searchterm" type="text" class="validate" style="display: none;">
+                                            <label for="searchterm">(What did you search for?)</label>
+                                        </label>    
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input id ="agent" type="checkbox" />
+                                                <span>Agent</span>
+                                                <input id="agentname" type="text" class="validate" style="display: none;">
+                                                <label for="agentname">(Agent Name)</label>
+                                            </label>    
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input id ="facebook" type="checkbox" />
+                                                <span>Facebook</span>
+                                            </label>    
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input id ="instagram" type="checkbox" />
+                                                <span>Instagram</span>
+                                            </label>    
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input id ="wordofmouth" type="checkbox" />
+                                                <span>Family/Friends</span>
+                                            </label>    
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input id ="ads" type="checkbox" />
+                                                <span>Advertising</span>
+                                            </label>    
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input id ="others" type="checkbox" />
+                                                <span>Others</span>
+                                                <input id="othersdesc" type="text" class="validate" style="display: none;"> 
+                                            </label>    
+                                        </p>  
+                                        </div>
+                                        <div class="input-field col s6">
+                                                <h5>First time customer?</h5>
+                                                <p>
+                                                <label>
+                                                    <input id="firsttimer" class="with-gap" name="firstimer" type="radio" checked />
+                                                    <span>Yes</span>
+                                                </label>
+                                                </p>
+                                                <p>
+                                                <label>
+                                                    <input id="regular" class="with-gap" name="firstimer" type="radio" />
+                                                    <span>No</span>
+                                                </label>
+                                                </p>
+                                        </div>
+                                  </div>
+                                  
+                                </form>                        
+                  </div>
+                </li>
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">whatshot</i>Order ($10 Delivery Charge for orders below $200) <div style="margin-left:auto;margin-right:0;">Grand Total: <span id="grand_total">$0.00</span></div></div>
+                  <div class="collapsible-body">
+                      <div style="max-height:400px;overflow:auto;">
+                      <table class="striped highlight">
+                          <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th style="min-width:200px">Item Name/Size</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Total Price</th>
+                            </tr>
+                          </thead>
+                  
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td>
+                                  <div class="input-field col s12">
+                                      <select id="option1" class="browser-default" onchange="option1()">
+                                        <option value="nil" selected>Choose your option</option>
+                                        <option value="nil" disabled>Rempeyek</option>
+                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
+                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
+                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
+                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
+                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
+                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
+                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
+                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
+                                        <option value="nil" disabled>Sambal</option>
+                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
+                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
+                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
+                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
+                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
+                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
+                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
+                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
+                                        <option value="nil" disabled>Paste</option>
+                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
+                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
+                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
+                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
+                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
+                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
+                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
+                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
+                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
+                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
+                                      </select>
+                                    </div>
+                              </td>
+                              <td><input type="number" id="quantity1" placeholder="0" min="0" onchange="option1()"></td>
+                              <td id="unitprice1">$0.00</td>
+                              <td id="totalprice1">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                              <td>
+                                  <div class="input-field col s12">
+                                      <select id="option2" class="browser-default" onchange="option2()">
+                                        <option value="nil" selected>Choose your option</option>
+                                        <option value="nil" disabled>Rempeyek</option>
+                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
+                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
+                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
+                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
+                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
+                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
+                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
+                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
+                                        <option value="nil" disabled>Sambal</option>
+                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
+                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
+                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
+                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
+                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
+                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
+                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
+                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
+                                        <option value="nil" disabled>Paste</option>
+                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
+                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
+                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
+                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
+                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
+                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
+                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
+                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
+                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
+                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
+                                      </select>
+                                    </div>
+                              </td>
+                              <td><input type="number" id="quantity2" placeholder="0" min="0" onchange="option2()"></td>
+                              <td id="unitprice2">$0.00</td>
+                              <td id="totalprice2">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                              <td>
+                                  <div class="input-field col s12">
+                                      <select id="option3" class="browser-default" onchange="option3()">
+                                        <option value="nil" selected>Choose your option</option>
+                                        <option value="nil" disabled>Rempeyek</option>
+                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
+                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
+                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
+                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
+                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
+                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
+                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
+                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
+                                        <option value="nil" disabled>Sambal</option>
+                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
+                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
+                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
+                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
+                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
+                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
+                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
+                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
+                                        <option value="nil" disabled>Paste</option>
+                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
+                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
+                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
+                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
+                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
+                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
+                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
+                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
+                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
+                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
+                                      </select>
+                                    </div>
+                              </td>
+                              <td><input type="number" id="quantity3" placeholder="0" min="0" onchange="option3()"></td>
+                              <td id="unitprice3">$0.00</td>
+                              <td id="totalprice3">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                              <td>
+                                  <div class="input-field col s12">
+                                      <select id="option4" class="browser-default" onchange="option4()">
+                                        <option value="nil" selected>Choose your option</option>
+                                        <option value="nil" disabled>Rempeyek</option>
+                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
+                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
+                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
+                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
+                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
+                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
+                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
+                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
+                                        <option value="nil" disabled>Sambal</option>
+                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
+                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
+                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
+                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
+                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
+                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
+                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
+                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
+                                        <option value="nil" disabled>Paste</option>
+                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
+                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
+                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
+                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
+                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
+                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
+                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
+                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
+                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
+                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
+                                      </select>
+                                    </div>
+                              </td>
+                              <td><input type="number" id="quantity4" placeholder="0" min="0" onchange="option4()"></td>
+                              <td id="unitprice4">$0.00</td>
+                              <td id="totalprice4">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                              <td>
+                                  <div class="input-field col s12">
+                                      <select id="option5" class="browser-default" onchange="option5()">
+                                        <option value="nil" selected>Choose your option</option>
+                                        <option value="nil" disabled>Rempeyek</option>
+                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
+                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
+                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
+                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
+                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
+                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
+                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
+                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
+                                        <option value="nil" disabled>Sambal</option>
+                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
+                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
+                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
+                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
+                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
+                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
+                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
+                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
+                                        <option value="nil" disabled>Paste</option>
+                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
+                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
+                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
+                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
+                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
+                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
+                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
+                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
+                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
+                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
+                                      </select>
+                                    </div>
+                              </td>
+                              <td><input type="number" id="quantity5" placeholder="0" min="0" onchange="option5()"></td>
+                              <td id="unitprice5">$0.00</td>
+                              <td id="totalprice5">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                              <td>
+                                  <div class="input-field col s12">
+                                      <select id="option6" class="browser-default" onchange="option6()">
+                                        <option value="nil" selected>Choose your option</option>
+                                        <option value="nil" disabled>Rempeyek</option>
+                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
+                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
+                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
+                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
+                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
+                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
+                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
+                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
+                                        <option value="nil" disabled>Sambal</option>
+                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
+                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
+                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
+                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
+                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
+                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
+                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
+                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
+                                        <option value="nil" disabled>Paste</option>
+                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
+                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
+                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
+                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
+                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
+                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
+                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
+                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
+                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
+                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
+                                      </select>
+                                    </div>
+                              </td>
+                              <td><input type="number" id="quantity6" placeholder="0" min="0" onchange="option6()"></td>
+                              <td id="unitprice6">$0.00</td>
+                              <td id="totalprice6">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                              <td>
+                                  <div class="input-field col s12">
+                                      <select id="option7" class="browser-default" onchange="option7()">
+                                        <option value="nil" selected>Choose your option</option>
+                                        <option value="nil" disabled>Rempeyek</option>
+                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
+                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
+                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
+                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
+                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
+                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
+                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
+                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
+                                        <option value="nil" disabled>Sambal</option>
+                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
+                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
+                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
+                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
+                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
+                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
+                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
+                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
+                                        <option value="nil" disabled>Paste</option>
+                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
+                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
+                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
+                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
+                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
+                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
+                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
+                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
+                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
+                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
+                                      </select>
+                                    </div>
+                              </td>
+                              <td><input type="number" id="quantity7" placeholder="0" min="0" onchange="option7()"></td>
+                              <td id="unitprice7">$0.00</td>
+                              <td id="totalprice7">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                              <td>
+                                  <div class="input-field col s12">
+                                      <select id="option8" class="browser-default" onchange="option8()">
+                                        <option value="nil" selected>Choose your option</option>
+                                        <option value="nil" disabled>Rempeyek</option>
+                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
+                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
+                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
+                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
+                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
+                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
+                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
+                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
+                                        <option value="nil" disabled>Sambal</option>
+                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
+                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
+                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
+                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
+                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
+                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
+                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
+                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
+                                        <option value="nil" disabled>Paste</option>
+                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
+                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
+                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
+                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
+                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
+                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
+                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
+                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
+                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
+                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
+                                      </select>
+                                    </div>
+                              </td>
+                              <td><input type="number" id="quantity8" placeholder="0" min="0" onchange="option8()"></td>
+                              <td id="unitprice8">$0.00</td>
+                              <td id="totalprice8">$0.00</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        </div>
+                  </div>  
+                </li>
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">place</i>Delivery<div style="margin-left:auto;margin-right:0;"><span id="address_input"></span></div></div>
+                  <div class="collapsible-body">
+                    <form>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <input id="remarks" type="text" class="validate" />
+                          <label for="remarks">Order Remarks</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <input id="address" type="text" onchange="updateAddress()" />
+                          <label for="address">Address</label>  
+                        </div>
+                      </div>
+                      <div class="row">
+                            <div class="input-field col s6">
+                            <h5>Preffered Delivery Timing</h5>
+                            <p>
+                            <label>
+                                <input id ="9amto12pm" type="checkbox" />
+                                <span>9 am - 12 pm</span>
+                            </label>    
+                            </p>
+                            <p>
+                                <label>
+                                    <input id ="1pmto6pm" type="checkbox" />
+                                    <span>1 pm - 6 pm</span>
+                                </label>    
+                            </p>
+                            <p>
+                                <label>
+                                    <input id ="6pmto9pm" type="checkbox" />
+                                    <span>6 pm - 9pm</span>
+                                </label>    
+                            </p>
+                            </div>
+                            <div class="col s6">
+                              <h5>Preffered Delivery Date</h5>
+                              <input id="deliverydate" type="text" class="datepicker">
+                              <label for="deliverydate">Input Date Here</label>  
+                            </div>
+                      </div>   
+                    </form> 
+                  </div>
+                </li>
+              </ul>
+          </div>
+      </div>
+
+      <div class="container">
+        <div class="section center">           
+            <button  class="btn waves-effect waves-light brown darken-1" type="submit" name="action" onclick="whatsapp()">Order By Whatsapp
+                <i class="material-icons right">perm_phone_msg</i>
+            </button>  
+            <button style="margin-top: 1px;" class="btn waves-effect waves-light brown darken-1" type="submit" name="action" onclick="email()">Order By Email
+                <i class="material-icons right">language</i>
+            </button>          
+        </div>
+      </div>
+
+ 
+      <a class="btn-floating btn-large indigo lighten-2" onclick="topFunction()" id="myBtn" title="Go to top"><i class="material-icons right">vertical_align_top</i></a>
+      
+    
+      <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="js/materialize.js"></script>
+      <script src="js/init.js"></script>
+      <script>
+      $(document).ready(function(){
+            $('#google').change(function(){
+                if(this.checked)
+                    $('#searchterm').fadeIn('fast');
+                else
+                    $('#searchterm').fadeOut('fast');
+            });
+            $('#agent').change(function(){
+                if(this.checked)
+                    $('#agentname').fadeIn('fast');
+                else
+                    $('#agentname').fadeOut('fast');
+            });
+            $('#others').change(function(){
+                if(this.checked)
+                    $('#othersdesc').fadeIn('fast');
+                else
+                    $('#othersdesc').fadeOut('fast');
+            });
+            
+        });
+      </script>
+      <script>
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function() {scrollFunction()};
+            
+            function scrollFunction() {
+              if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("myBtn").style.visibility = "visible";
+                document.getElementById("myBtn").style.opacity = "1";
+              } else {
+                document.getElementById("myBtn").style.visibility = "hidden";
+                document.getElementById("myBtn").style.opacity = "0";
+              }
+            }
+            
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+              document.body.scrollTop = 0;
+              document.documentElement.scrollTop = 0;
+            }
+            </script>
+            <script>
+                function option1() {
+                  var x = document.getElementById("option1").value;
+                  var unitprice= x.split("/").pop();
+                  document.getElementById("unitprice1").innerHTML = unitprice;
+                  var unitprice_noS = x.split("$").pop();
+                  var unitprice_int= parseFloat(unitprice_noS);
+                  var y = document.getElementById("quantity1").value;
+                  var totalprice = unitprice_int * y;
+                  document.getElementById("totalprice1").innerHTML = "$" + totalprice.toFixed(2);
+                  updateGrandPrice();
+                }
+                function option2() {
+                  var x = document.getElementById("option2").value;
+                  var unitprice= x.split("/").pop();
+                  document.getElementById("unitprice2").innerHTML = unitprice;
+                  var unitprice_noS = x.split("$").pop();
+                  var unitprice_int= parseFloat(unitprice_noS);
+                  var y = document.getElementById("quantity2").value;
+                  var totalprice = unitprice_int * y;
+                  document.getElementById("totalprice2").innerHTML = "$" + totalprice.toFixed(2);
+                  updateGrandPrice();
+                }
+                function option3() {
+                  var x = document.getElementById("option3").value;
+                  var unitprice= x.split("/").pop();
+                  document.getElementById("unitprice3").innerHTML = unitprice;
+                  var unitprice_noS = x.split("$").pop();
+                  var unitprice_int= parseFloat(unitprice_noS);
+                  var y = document.getElementById("quantity3").value;
+                  var totalprice = unitprice_int * y;
+                  document.getElementById("totalprice3").innerHTML = "$" + totalprice.toFixed(2);
+                  updateGrandPrice();
+                }
+                function option4() {
+                  var x = document.getElementById("option4").value;
+                  var unitprice= x.split("/").pop();
+                  document.getElementById("unitprice4").innerHTML = unitprice;
+                  var unitprice_noS = x.split("$").pop();
+                  var unitprice_int= parseFloat(unitprice_noS);
+                  var y = document.getElementById("quantity4").value;
+                  var totalprice = unitprice_int * y;
+                  document.getElementById("totalprice4").innerHTML = "$" + totalprice.toFixed(2);
+                  updateGrandPrice();
+                }
+                function option5() {
+                  var x = document.getElementById("option5").value;
+                  var unitprice= x.split("/").pop();
+                  document.getElementById("unitprice5").innerHTML = unitprice;
+                  var unitprice_noS = x.split("$").pop();
+                  var unitprice_int= parseFloat(unitprice_noS);
+                  var y = document.getElementById("quantity5").value;
+                  var totalprice = unitprice_int * y;
+                  document.getElementById("totalprice5").innerHTML = "$" + totalprice.toFixed(2);
+                  updateGrandPrice();
+                }
+                function option6() {
+                  var x = document.getElementById("option6").value;
+                  var unitprice= x.split("/").pop();
+                  document.getElementById("unitprice6").innerHTML = unitprice;
+                  var unitprice_noS = x.split("$").pop();
+                  var unitprice_int= parseFloat(unitprice_noS);
+                  var y = document.getElementById("quantity6").value;
+                  var totalprice = unitprice_int * y;
+                  document.getElementById("totalprice6").innerHTML = "$" + totalprice.toFixed(2);
+                  updateGrandPrice();
+                }
+                function option7() {
+                  var x = document.getElementById("option7").value;
+                  var unitprice= x.split("/").pop();
+                  document.getElementById("unitprice7").innerHTML = unitprice;
+                  var unitprice_noS = x.split("$").pop();
+                  var unitprice_int= parseFloat(unitprice_noS);
+                  var y = document.getElementById("quantity7").value;
+                  var totalprice = unitprice_int * y;
+                  document.getElementById("totalprice7").innerHTML = "$" + totalprice.toFixed(2);
+                  updateGrandPrice();
+                }
+                function option8() {
+                  var x = document.getElementById("option8").value;
+                  var unitprice= x.split("/").pop();
+                  document.getElementById("unitprice8").innerHTML = unitprice;
+                  var unitprice_noS = x.split("$").pop();
+                  var unitprice_int= parseFloat(unitprice_noS);
+                  var y = document.getElementById("quantity8").value;
+                  var totalprice = unitprice_int * y;
+                  document.getElementById("totalprice8").innerHTML = "$" + totalprice.toFixed(2);
+                  updateGrandPrice();
+                }
+                function updateGrandPrice() {
+                  var tp1 = document.getElementById("totalprice1").innerHTML;
+                  var tp1 = parseFloat(tp1.split("$").pop());
+                  var tp2 = document.getElementById("totalprice2").innerHTML;
+                  var tp2 = parseFloat(tp2.split("$").pop());
+                  var tp3 = document.getElementById("totalprice3").innerHTML;
+                  var tp3 = parseFloat(tp3.split("$").pop());
+                  var tp4 = document.getElementById("totalprice4").innerHTML;
+                  var tp4 = parseFloat(tp4.split("$").pop());
+                  var tp5 = document.getElementById("totalprice5").innerHTML;
+                  var tp5 = parseFloat(tp5.split("$").pop());
+                  var tp6 = document.getElementById("totalprice6").innerHTML;
+                  var tp6 = parseFloat(tp6.split("$").pop());
+                  var tp7 = document.getElementById("totalprice7").innerHTML;
+                  var tp7 = parseFloat(tp7.split("$").pop());
+                  var tp8 = document.getElementById("totalprice8").innerHTML;
+                  var tp8 = parseFloat(tp8.split("$").pop());
+                  var gt = tp1 + tp2 + tp3 + tp4 + tp5 + tp6 + tp7 + tp8;
+                  var x = document.getElementById("grand_total");
+                  gt = gt.toFixed(2);
+                  x.innerHTML = (gt<200) ? "$" + gt + " + $10.00" : "$" + gt;
+                }
+                function whatsapp() {
+                  var name = document.getElementById('name').value;
+                  var contactno = document.getElementById('contactno').value;
+                  var option1 = document.getElementById('option1').value;
+                  var option2 = document.getElementById('option2').value;
+                  var option3 = document.getElementById('option3').value;
+                  var option4 = document.getElementById('option4').value;
+                  var option5 = document.getElementById('option5').value;
+                  var option6 = document.getElementById('option6').value;
+                  var option7 = document.getElementById('option7').value;
+                  var option8 = document.getElementById('option8').value;
+
+                  var quantity1 = document.getElementById('quantity1').value;  
+                  var quantity2 = document.getElementById('quantity2').value;
+                  var quantity3 = document.getElementById('quantity3').value;
+                  var quantity4 = document.getElementById('quantity4').value;
+                  var quantity5 = document.getElementById('quantity5').value;
+                  var quantity6 = document.getElementById('quantity6').value;
+                  var quantity7 = document.getElementById('quantity7').value;
+                  var quantity8 = document.getElementById('quantity8').value;
+
+                  var order;
+                  if (option1 != "nil") {
+                    order = option1 + "%0aQty:%20" + quantity1 + "%0a";
+                    if (option2 != "nil") {
+                      order = order + option2 + "%0aQty:%20" + quantity2 + "%0a";
+                      if (option3 != "nil") {
+                        order = order + option3 + "%0aQty:%20" + quantity3 + "%0a";
+                        if (option4 != "nil") {
+                          order = order + option4 + "%0aQty:%20" + quantity4 + "%0a";
+                          if (option5 != "nil") {
+                            order = order + option5 + "%0aQty:%20" + quantity5 + "%0a";
+                            if (option6 != "nil") {
+                              order = order + option6 + "%0a%20Qty:%20" + quantity6 + "%0a";
+                              if (option7 != "nil") {
+                                order = order + option7 + "%0aQty:%20" + quantity7 + "%0a";
+                                if (option8 != "nil") {
+                                  order = order + option8 + "%0aQty:%20" + quantity8 + "%0a";
+                                  
+                                    }
+                                  }  
+                                }
+                              }
+                            }  
+                          }
+                        }
+                      }
+                  var dc = document.getElementById("grand_total").innerHTML;      
+                  dc = dc.includes("+ $10.00");
+                  order = (dc=true) ? order + "*Delivery Charge $10*" + "%0a" : order;
+                  
+                  var remarks = document.getElementById('remarks').value;
+                  var address = document.getElementById('address').value;
+                  var morning = (document.getElementById('9amto12pm')).checked == true ? "(9am-12pm)" : "";
+                  var afternoon = (document.getElementById('1pmto6pm')).checked == true ? "(1pm-6pm)" : "";
+                  var evening = (document.getElementById('6pmto9pm')).checked == true ? "(6pm-9pm)" : "";
+                  
+                  var timing = morning + afternoon + evening;
+                  var deliverydate = document.getElementById('deliverydate').value;
+
+                  var email = document.getElementById("email").value;
+                  var firsttimer = document.getElementById("firsttimer").checked ? "First Time Customer" : "Regular Customer";
+                  var google = document.getElementById("google").checked ? "(Google Search:" + document.getElementById("searchterm").value + ")" : "";
+                  var agent = document.getElementById("agent").checked ? "(Agent:" + document.getElementById("agentname").value + ")" : "";    
+                  var fb = document.getElementById("facebook").checked ? "(Facebook)" : "";
+                  var insta = document.getElementById("instagram").checked ? "(Instagram)" : "";
+                  var wom = document.getElementById("wordofmouth").checked ? "(Word of Mouth)" : "";
+                  var ads = document.getElementById("ads").checked ? "(Advertising)" : "";
+                  var other = document.getElementById("others").checked ? "(Others:" + document.getElementById("othersdesc").value + ")" : "";    
+
+                  var referral = google + agent + fb + insta + wom + ads + other ;  
+
+                  var message = "*Website Order*%0a" + name + "%0a" + contactno + "%0a"+ address +  "%0a_"+  deliverydate + "_%0a_" + timing + "_%0a%0a"+ order +  "%0aRemarks:%0a*" + remarks + "*%0a" + email + "%0a" + firsttimer + "%0a" + referral ;
+                  var link = "https://api.whatsapp.com/send?phone=6581831445&text=" + message ;
+                  window.location.assign(link);
+                }
+
+                function email() {
+                  var name = document.getElementById('name').value;
+                  var contactno = document.getElementById('contactno').value;
+                  var option1 = document.getElementById('option1').value;
+                  var option2 = document.getElementById('option2').value;
+                  var option3 = document.getElementById('option3').value;
+                  var option4 = document.getElementById('option4').value;
+                  var option5 = document.getElementById('option5').value;
+                  var option6 = document.getElementById('option6').value;
+                  var option7 = document.getElementById('option7').value;
+                  var option8 = document.getElementById('option8').value;
+
+                  var quantity1 = document.getElementById('quantity1').value;  
+                  var quantity2 = document.getElementById('quantity2').value;
+                  var quantity3 = document.getElementById('quantity3').value;
+                  var quantity4 = document.getElementById('quantity4').value;
+                  var quantity5 = document.getElementById('quantity5').value;
+                  var quantity6 = document.getElementById('quantity6').value;
+                  var quantity7 = document.getElementById('quantity7').value;
+                  var quantity8 = document.getElementById('quantity8').value;
+
+                  var order;
+                  if (option1 != "nil") {
+                    order = option1 + "%0aQty:%20" + quantity1 + "%0a";
+                    if (option2 != "nil") {
+                      order = order + option2 + "%0aQty:%20" + quantity2 + "%0a";
+                      if (option3 != "nil") {
+                        order = order + option3 + "%0aQty:%20" + quantity3 + "%0a";
+                        if (option4 != "nil") {
+                          order = order + option4 + "%0aQty:%20" + quantity4 + "%0a";
+                          if (option5 != "nil") {
+                            order = order + option5 + "%0aQty:%20" + quantity5 + "%0a";
+                            if (option6 != "nil") {
+                              order = order + option6 + "%0a%20Qty:%20" + quantity6 + "%0a";
+                              if (option7 != "nil") {
+                                order = order + option7 + "%0aQty:%20" + quantity7 + "%0a";
+                                if (option8 != "nil") {
+                                  order = order + option8 + "%0aQty:%20" + quantity8 + "%0a";
+                                  
+                                    }
+                                  }  
+                                }
+                              }
+                            }  
+                          }
+                        }
+                      }
+                  var dc = document.getElementById("grand_total").innerHTML;      
+                  dc = dc.includes("+ $10.00");
+                  order = (dc==true) ? order + "*Delivery Charge $10*" + "%0a" : order;
+                  
+                  var remarks = document.getElementById('remarks').value;
+                  var address = document.getElementById('address').value;
+                  var morning = (document.getElementById('9amto12pm')).checked == true ? "(9am-12pm)" : "";
+                  var afternoon = (document.getElementById('1pmto6pm')).checked == true ? "(1pm-6pm)" : "";
+                  var evening = (document.getElementById('6pmto9pm')).checked == true ? "(6pm-9pm)" : "";
+                  
+                  var timing = morning + afternoon + evening;
+                  var deliverydate = document.getElementById('deliverydate').value;
+                  
+                  var email = document.getElementById("email").value;
+                  var firsttimer = document.getElementById("firsttimer").checked ? "First Time Customer" : "Regular Customer";
+                  var google = document.getElementById("google").checked ? "(Google Search:" + document.getElementById("searchterm").value + ")" : "";
+                  var agent = document.getElementById("agent").checked ? "(Agent:" + document.getElementById("agentname").value + ")" : "";    
+                  var fb = document.getElementById("facebook").checked ? "(Facebook)" : "";
+                  var insta = document.getElementById("instagram").checked ? "(Instagram)" : "";
+                  var wom = document.getElementById("wordofmouth").checked ? "(Word of Mouth)" : "";
+                  var ads = document.getElementById("ads").checked ? "(Advertising)" : "";
+                  var other = document.getElementById("others").checked ? "(Others:" + document.getElementById("othersdesc").value + ")" : "";    
+
+                  var referral = google + agent + fb + insta + wom + ads + other ;  
+
+                  var message = "*Website Order*%0a" + name + "%0a" + contactno + "%0a"+ address +  "%0a_"+  deliverydate + "_%0a_" + timing + "_%0a%0a"+ order +  "%0aRemarks:%0a*" + remarks + "*%0a" + email + "%0a" + firsttimer + "%0a" + referral ;
+                  var link = "mailto:info@wahyubrand.com?subject=WebsiteOrder&body=" + message ;
+                  window.location.assign(link);
+                }           
+                
+                function updateName() {
+                  var name = document.getElementById("name").value;
+                  document.getElementById("name_input").innerHTML = name;
+                }
+
+                function updateAddress() {
+                  var address = document.getElementById("address").value;
+                  document.getElementById("address_input").innerHTML = address;
+                }
+
+                             
+            </script>
+            
+{% endblock %}

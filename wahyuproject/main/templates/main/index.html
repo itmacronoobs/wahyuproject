@@ -1,0 +1,357 @@
+{% extends 'main/layout.html' %}
+{% load staticfiles %}
+{% block content %}
+<div class="navbar-fixed">
+    <nav class="green lighten-5" role="navigation">
+      <div class="nav-wrapper container">
+          <a id="logo-container" href="" class="brand-logo"><img style="margin-top: 5px;margin-right: 5px;" src="{% static "img/logo-transparent-100px.png" %}" width="50px" height="50px" alt=""></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#aboutus">About Us</a></li>
+          <li><a href="#sambal">Sambal</a></li>
+          <li><a href="#paste">Paste</a></li>
+          <li><a href="#rempeyek">Rempeyek</a></li>
+          <li><a href="#footer">Contact Us</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li class="teal lighten-4"><a href="{% url 'order' %}">Buy Now</a></li>
+        </ul>
+  
+        
+        <a class="hide-on-med-and-up black-text right" href="order">Buy Now</a>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+  </div>
+  
+  <ul id="nav-mobile" class="sidenav">
+      <li><a href="#">Homepage</a></li>
+      <li><a href="#aboutus">About Us</a></li>
+      <li><a href="#sambal">Sambal</a></li>
+      <li><a href="#paste">Paste</a></li>
+      <li><a href="#rempeyek">Rempeyek</a></li>
+      <li><a href="#footer">Contact Us</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="{% url 'order' %}">Buy Now</a></li>
+  </ul>
+  
+
+
+
+<div class="section alert ">
+    <span class="closebtn">&times;</span> 
+    <strong>Wahyu Brand</strong> products is now available in Malaysia! <a class="white-text" href="order.html"><u>Buy Now</u></a> or call <a class="white-text" href="tel:+6569108515"><b>+65 6910 8515</b></a>(Singapore)/<a class="white-text" href="tel:+60133402500"><b>+60 13-340 2500</b></a>(Malaysia) for more info!
+</div>
+<div class="parallax-container valign-wrapper"> 
+    <video class="responsive-video" autoplay muted loop>
+        <source src="{% static "img/factory-video-cropped.mp4" %}" type="video/mp4">
+    </video>
+</div>
+
+
+    <div class="section no-pad-bot">
+      <h1 class="center vertical_align_top" style="font-size:30px;">Wahyu Brand - Sambal, Instant Pastes and Rempeyek made in Singapore!</h1>
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <div class="center"><img src="{% static "img/halal-logo.png" %} " width="80px" height="80px" alt=""></div>
+            <h2 class="center"style="font-size:28px;">MUIS Halal Certified</h2>
+
+            <p style="text-align: center;"class="light">We are a halal-certified manufacturer under Majlis Ugama Islam Singapura (MUIS). Our certification is widely recognized around the world because of stringent requirements. All our products(e.g. Sambal Belacan Power, Instant Rendang Paste and Rempeyek Peanuts) are covered by MUIS Product Scheme.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+            <div class="icon-block">
+                <div class="center"><img src="{% static "img/100-muslim-owned.png" %} " width="60px" height="80px" alt=""></div>
+              <h2 class="center"style="font-size:28px;">Muslim Owned</h2>
+  
+              <p style="text-align: center;" class="light">We are proud to say that Wahyu Brand is 100% muslim-owned and made in Singapore. Our spicy sambal, instant easy-to-use pastes and crispy rempeyek has satisfied the tastebuds of Singaporeans for the past 12 years!<p style="text-align: center;"><img src="{% static "img/made-in-singapore.gif" width="40px" height="40px" alt=""></p></p>
+            </div>
+          </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+              <div class="center"><img src="{% static "img/iso-22000-logo.png" %} " width="90px" height="90px" alt=""></div>
+            <h2 class="center"style="font-size:28px;">Food Safety Certified</h2>
+
+            <p style="text-align: center;" class="light">By utilizing ISO 22000:2005 Food Safety Management System, we ensure that all products that goes through our production and distribution are safe to consume for our customers. Our consumers can enjoy their sambal belacan with ease of mind!</p>
+          </div>
+        </div>
+
+        
+      </div>
+
+    </div>
+
+  <div class="container hide-on-med-and-down">
+  <div class="carousel carousel-slider " >
+      <div class="carousel-item red white-text" href="#one!">
+        <img src="{% static "img/poster-product.jpg" %} " height="650px" alt="">
+      </div>
+      <div class="carousel-item amber white-text" href="#two!">
+          <img src="{% static "img/poster-sambal.jpeg" %} " height="650px" alt="">
+      </div>
+      <div class="carousel-item green white-text" href="#three!">
+          <img src="{% static "img/coffee-talk-poster.jpg" %} " height="650px"  alt="">
+      </div>
+  </div>
+  </div>
+
+  <div class="container hide-on-med-and-up">
+    <div class="section">
+        <img src="{% static "img/poster-product.jpg" %} " width="100%" height="auto" alt="">
+    </div>
+    <div class="section">
+        <img src="{% static "img/poster-sambal.jpeg" %} " width="100%" height="auto" alt="">
+    </div>
+    <div class="section">
+        <img src="{% static "img/coffee-talk-poster.jpg" %} " width="100%" height="auto" alt="">
+    </div>  
+  </div>
+
+    <div class="section center">
+        <h5>Our Customers</h5>
+      <div class="marquee">
+        <div>
+          <img src="{% static "img/crown-coffee-logo.jpg" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/en-frozen-logo.jpg" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/four-seasons-logo.jpeg" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/hao-mart-logo.png" %} " width="100px" height="100px"  alt="">
+          <img src="{% static "img/swee-heng-logo.jpeg" %} " width="100px" height="100px"  alt="">
+          <img src="{% static "img/tai-sun-logo.jpg" %} " width="100px" height="100px"  alt="">
+          <img src="{% static "img/toko-warisan-logo.png" %} " width="100px" height="100px"  alt="">
+          <img src="{% static "img/my-outlets-logo.jpeg" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/chilli-cobek-logo.png" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/seaco_logo.png" %} " width="100px" height="100px" alt="">
+
+
+          <img src="{% static "img/crown-coffee-logo.jpg" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/en-frozen-logo.jpg" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/four-seasons-logo.jpeg" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/hao-mart-logo.png" %} " width="100px" height="100px"  alt="">
+          <img src="{% static "img/swee-heng-logo.jpeg" %} " width="100px" height="100px"  alt="">
+          <img src="{% static "img/tai-sun-logo.jpg" %} " width="100px" height="100px"  alt="">
+          <img src="{% static "img/toko-warisan-logo.png" %} " width="100px" height="100px"  alt="">
+          <img src="{% static "img/my-outlets-logo.jpeg" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/chilli-cobek-logo.png" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/seaco_logo.png" %} " width="100px" height="100px" alt="">
+
+          <img src="{% static "img/crown-coffee-logo.jpg" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/en-frozen-logo.jpg" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/four-seasons-logo.jpeg" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/hao-mart-logo.png" %} " width="100px" height="100px"  alt="">
+          <img src="{% static "img/swee-heng-logo.jpeg" %} " width="100px" height="100px"  alt="">
+          <img src="{% static "img/tai-sun-logo.jpg" %} " width="100px" height="100px"  alt="">
+          <img src="{% static "img/toko-warisan-logo.png" %} " width="100px" height="100px"  alt="">
+          <img src="{% static "img/my-outlets-logo.jpeg" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/chilli-cobek-logo.png" %} " width="100px" height="100px" alt="">
+          <img src="{% static "img/seaco_logo.png" %} " width="100px" height="100px" alt="">
+
+        </div>
+    </div>
+   </div>
+
+
+
+  <div class="parallax-container valign-wrapper" id="aboutus">
+    
+      <div class="container">
+        <div class="row center vertical_align_top">
+          <h5 class="header col s12 light black-text">Our Story</h5>
+        </div>
+      </div>
+  
+    <div class="parallax"><img src="{% static "img/logo-banner.jpg" %} " width="auto" height="850px" alt="Unsplashed background img 2"></div>
+  </div>
+
+  <div class="container">
+    <div class="section">
+
+      <div class="row">
+        <div class="col s12 center">
+          <h3><i class="mdi-content-send brown-text"></i></h3>
+          <h4>A Taste of Traditional Recipe</h4>
+          <p class="left-align light">Our business starts growing in the beginning of 2003. It was a blessing that our business thrived as the whole world is suffering from the economic crisis. As demand for our products increases, we open our 1st manufacturing centre at 52 International Road #03-06 on 30th November 2008. This further increases our business and takes our product to greater heights.<br/><br/>
+            After seeing our Rempeyek delicacies line becoming very popular, we expended our business model further by creating our new brand of sambal belacan. This sambal has since been gaining popularity and we have marketed this product to the whole of Singapore. Since than, we have added even more, 3 types of sambal making a total of 8 types of sambal we are currently producing. We seek to always improve and expand our business in anyway possible to make Wahyu Brand a success. That is why we have decided to join the ISO 22000 to even further our standings in the business. We believe that with the ISO 22000 Wahyu Brand will have increase in it’s reputation as the ISO 22000 comprises of many respectable brands and it will be an honor to be included too.
+            <br/><br/>Our business maintain a steady 15-20% growth in production. This enables us to attract interests from other companies in Singapore. Currently, we are working on introducing our product range to the international market. We have a highly dedicated team that has been working on this aspect of our Business Internationalisation Plan while we maintain our local business growth and demand for our products. We would also like to extend our business network and form partnerships with business corporations, food distributors and organisations with the best interest of our business. </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="parallax-container valign-wrapper" id="sambal">
+    
+      <div class="container">
+        <div class="row center vertical_align_top">
+          <h2 style="font-size:30px;" class="header col s12 light">{% for category in categories %}
+            {% if category.pk == 1 %}
+            {{category.name}}
+            {%endif%}
+        {% endfor %}</h2>
+          <p>{% for category in categories %}
+            {% if category.pk == 1 %}
+            {{category.description}}
+            {%endif%}
+        {% endfor %}</p>
+        </div>
+      </div>
+    
+    <div class="parallax"><img src="{% static "img/tanushree-rao-1172284-unsplash.jpg" %} " height="900px" alt="Unsplashed background img 3"></div>
+  </div>
+
+  <div class="container">
+      <div class="section no-pad-bot">
+
+          <div class="row">
+            {% for product in products %}
+            {% if product.category.name == "Sambal"%}
+            {% if product.unitnetweight < 1000 %}
+            <div class="col s3">
+              <div class="card">
+                <div class="card-image">
+                  <img class="activator" src="{% static product.imgpath %} ">
+                  <a class="btn-floating halfway-fab waves-effect waves-light deep-orange darken-3 activator"><i class="material-icons">library_books</i>></a>
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">{{product.name2}}</span>
+                  <p><a href="order.html">Buy Now</a></p>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4">{{product.name}}<i class="material-icons right">close</i></span>
+                  <p>{{product.productdescription}}</p>
+                </div>
+              </div>
+            </div>
+            {%endif%}
+            {%endif%}
+            {% endfor %}
+          </div>
+
+      </div>
+  </div>
+
+  <div class="parallax-container valign-wrapper" id="paste">
+    
+      <div class="container">
+        <div class="row center vertical_align_top">
+          <h2 style="font-size:30px;" class="header col s12 light">Instant Paste</h2>
+          <p>Our paste are made with the best and freshest ingredients and carefully formulated to ensure that customers get to experience the authentic taste of traditional food at the comfort of their own kitchen with ease!</p>
+        </div>
+      </div>
+    
+    <div class="parallax"><img src="{% static "img/herbs by@pratiksha_mohanty.jpg" %} " height="900px" alt="Unsplashed background img 3"></div>
+  </div>
+
+  <div class="container">
+      <div class="section no-pad-bot">
+          <div class="row">
+              {% for product in products %}
+              {% if product.category.name == "Paste"%}
+              {% if product.unitnetweight < 1000 %}
+            <div class="col l3">
+              <div class="card">
+                <div class="card-image">
+                  <img class="activator" src="{% static product.imgpath %} ">
+                  <a class="btn-floating halfway-fab waves-effect waves-light deep-orange darken-3 activator"><i class="material-icons">library_books</i>></a>
+                </div>
+                <div class="card-content">
+                  <span style="font-size: 19.5px;" class="card-title activator grey-text text-darken-4">{{product.name2}}</span>
+                  <p><a href="order.html">Buy Now</a></p>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4">{{product.name}}<i class="material-icons right">close</i></span>
+                  <p>{{product.productdescription}}</p>
+                </div>
+              </div>
+            </div>
+              {%endif%}
+              {%endif%}
+              {% endfor %}
+            </div>
+            </div>
+          </div>
+  </div>
+  
+  <div class="parallax-container valign-wrapper" id="rempeyek">
+      
+        <div class="container">
+          <div class="row center">
+            <h2 style="font-size:30px;" class="header col s12 light">Rempeyek</h2>
+            <p>This awesome snack has been in the hearts of the locals in South East Asia since the 19th Century. Our rempeyek uses ingredients from a traditional recipe that has been passed down from past generations from the island of Java, and it has successfully charmed the Singaporeans tastebuds since our humble beginning.</p>
+          </div>
+        </div>
+      
+      <div class="parallax"><img src="{% static "img/samrat-khadka-1187417-unsplash.jpg" %} " height="900px" alt="Unsplashed background img 3"></div>
+    </div>
+
+    <div class="container">
+        <div class="section  ">
+            <div class="row">
+                {% for product in products %}
+                {% if product.category.name == "Rempeyek"%}
+                {% if product.unitnetweight < 2500 %}
+                <div class="col l3">
+                  <div class="card">
+                    <div class="card-image">
+                      <img class="activator" src="{% static product.imgpath %} ">
+                      <a class="btn-floating halfway-fab waves-effect waves-light deep-orange darken-3 activator"><i class="material-icons">library_books</i>></a>
+                    </div>
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">{{product.name2}}</span>
+                      <p><a href="order.html">Buy Now</a></p>
+                    </div>
+                    <div class="card-reveal">
+                      <span class="card-title grey-text text-darken-4">{{product.name}}<i class="material-icons right">close</i></span>
+                      <p>{{product.productdescription}}</p>
+                    </div>
+                  </div>
+                </div>
+                  {%endif%}
+                  {%endif%}
+                  {% endfor %}
+                </div>
+              </div>
+        </div>
+    </div>
+    
+    <a class="btn-floating btn-large indigo lighten-2" onclick="topFunction()" id="myBtn" title="Go to top"><i class="material-icons right">vertical_align_top</i></a>
+
+  <!--  Scripts-->
+
+  <script>
+      var close = document.getElementsByClassName("closebtn");
+      var i;
+      
+      for (i = 0; i < close.length; i++) {
+        close[i].onclick = function(){
+          var div = this.parentElement;
+          div.style.opacity = "0.05";
+          setTimeout(function(){ div.style.display = "none"; }, 300);
+        }
+      }
+  </script>
+  <script>
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function() {scrollFunction()};
+      
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          document.getElementById("myBtn").style.visibility = "visible";
+          document.getElementById("myBtn").style.opacity = "1";
+        } else {
+          document.getElementById("myBtn").style.visibility = "hidden";
+          document.getElementById("myBtn").style.opacity = "0";
+        }
+      }
+      
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+      </script>
+
+ 
+{% endblock %}
