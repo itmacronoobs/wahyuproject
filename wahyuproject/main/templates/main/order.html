@@ -1,39 +1,9 @@
 
- {% extends 'products/layout.html' %}
+ {% extends 'main/layout.html' %}
  {% load staticfiles %}
  {% block content %}
 
- <div class="navbar-fixed">
-    <nav class="green lighten-5" role="navigation">
-      <div class="nav-wrapper container">
-          <a id="logo-container" href="{% url 'index' %}" class="brand-logo"><img style="margin-top: 5px;margin-right: 5px;" src="{% static "img/logo-transparent-100px.png" %}" width="50px" height="50px" alt=""></a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="{% url 'index' %}#aboutus">About Us</a></li>
-          <li><a href="{% url 'index' %}#sambal">Sambal</a></li>
-          <li><a href="{% url 'index' %}#paste">Paste</a></li>
-          <li><a href="{% url 'index' %}#rempeyek">Rempeyek</a></li>
-          <li><a href="{% url 'index' %}#footer">Contact Us</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li class="teal lighten-4"><a href="#">Buy Now</a></li>
-        </ul>
-  
-        
-        <a class="hide-on-med-and-up black-text right" href="#">Buy Now</a>
-        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      </div>
-    </nav>
-  </div>
-  
-  <ul id="nav-mobile" class="sidenav">
-      <li><a href="#">Homepage</a></li>
-      <li><a href="{% url 'index' %}#aboutus">About Us</a></li>
-      <li><a href="{% url 'index' %}#sambal">Sambal</a></li>
-      <li><a href="{% url 'index' %}#paste">Paste</a></li>
-      <li><a href="{% url 'index' %}#rempeyek">Rempeyek</a></li>
-      <li><a href="{% url 'index' %}#footer">Contact Us</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="#">Buy Now</a></li>
-  </ul>
+
   
 
 
@@ -52,7 +22,7 @@
       <div class="container">
           <div class="section no-pad-bot">
         
-            <ul class="collapsible popout data-collapsible="accordion">
+            <ul class="collapsible expandable">
                 <li class="active">
                   <div class="collapsible-header"><i class="material-icons">face</i>Contact<div style="margin-left:auto;margin-right:0;"><span id="name_input"></span></div></div>
                   <div class="collapsible-body">
@@ -71,78 +41,11 @@
                                             <label for="email">Email</label>
                                           </div>
                                   </div>
-                                  <div class="row">
-                                        <div class="input-field col s6">
-                                        <h5>How did you hear about us?</h5>
-                                        <p>
-                                        <label>
-                                            <input id ="google" type="checkbox" />
-                                            <span>Google Search</span>
-                                            <input id="searchterm" type="text" class="validate" style="display: none;">
-                                            <label for="searchterm">(What did you search for?)</label>
-                                        </label>    
-                                        </p>
-                                        <p>
-                                            <label>
-                                                <input id ="agent" type="checkbox" />
-                                                <span>Agent</span>
-                                                <input id="agentname" type="text" class="validate" style="display: none;">
-                                                <label for="agentname">(Agent Name)</label>
-                                            </label>    
-                                        </p>
-                                        <p>
-                                            <label>
-                                                <input id ="facebook" type="checkbox" />
-                                                <span>Facebook</span>
-                                            </label>    
-                                        </p>
-                                        <p>
-                                            <label>
-                                                <input id ="instagram" type="checkbox" />
-                                                <span>Instagram</span>
-                                            </label>    
-                                        </p>
-                                        <p>
-                                            <label>
-                                                <input id ="wordofmouth" type="checkbox" />
-                                                <span>Family/Friends</span>
-                                            </label>    
-                                        </p>
-                                        <p>
-                                            <label>
-                                                <input id ="ads" type="checkbox" />
-                                                <span>Advertising</span>
-                                            </label>    
-                                        </p>
-                                        <p>
-                                            <label>
-                                                <input id ="others" type="checkbox" />
-                                                <span>Others</span>
-                                                <input id="othersdesc" type="text" class="validate" style="display: none;"> 
-                                            </label>    
-                                        </p>  
-                                        </div>
-                                        <div class="input-field col s6">
-                                                <h5>First time customer?</h5>
-                                                <p>
-                                                <label>
-                                                    <input id="firsttimer" class="with-gap" name="firstimer" type="radio" checked />
-                                                    <span>Yes</span>
-                                                </label>
-                                                </p>
-                                                <p>
-                                                <label>
-                                                    <input id="regular" class="with-gap" name="firstimer" type="radio" />
-                                                    <span>No</span>
-                                                </label>
-                                                </p>
-                                        </div>
-                                  </div>
-                                  
+                            
                                 </form>                        
                   </div>
                 </li>
-                <li>
+                <li class="active">
                   <div class="collapsible-header"><i class="material-icons">whatshot</i>Order ($10 Delivery Charge for orders below $200) <div style="margin-left:auto;margin-right:0;">Grand Total: <span id="grand_total">$0.00</span></div></div>
                   <div class="collapsible-body">
                       <div style="max-height:400px;overflow:auto;">
@@ -499,7 +402,7 @@
                         </div>
                   </div>  
                 </li>
-                <li>
+                <li class="active">
                   <div class="collapsible-header"><i class="material-icons">place</i>Delivery<div style="margin-left:auto;margin-right:0;"><span id="address_input"></span></div></div>
                   <div class="collapsible-body">
                     <form>
@@ -570,6 +473,8 @@
       <script src="js/init.js"></script>
       <script>
       $(document).ready(function(){
+
+            
             $('#google').change(function(){
                 if(this.checked)
                     $('#searchterm').fadeIn('fast');
@@ -588,10 +493,17 @@
                 else
                     $('#othersdesc').fadeOut('fast');
             });
-            
+
+            var elem = document.querySelector('.collapsible.expandable');
+            var instance = M.Collapsible.init(elem, {
+                accordion: false
+            });
         });
       </script>
       <script>
+
+            
+
             // When the user scrolls down 20px from the top of the document, show the button
             window.onscroll = function() {scrollFunction()};
             
