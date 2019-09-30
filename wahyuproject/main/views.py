@@ -17,7 +17,7 @@ def index(request):
         'categories' : category,
         'products' : products
     }
-    return render(request,'products/index.html', content)
+    return render(request,'main/index.html', content)
 
 def order(request):
     category = Category.objects.all
@@ -27,7 +27,7 @@ def order(request):
         'categories' : category,
         'products' : products
     }
-    return render(request,'products/order.html', content)
+    return render(request,'main/order.html', content)
     
 def excel(request):
     if request.method == 'POST':
@@ -58,4 +58,4 @@ def excel(request):
             return HttpResponseRedirect('/admin/')
     else:
         form = UploadFileForm()
-    return render(request, 'excel.html', {'form': form})
+    return render(request, 'main/excel.html', {'form': form})

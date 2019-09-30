@@ -46,6 +46,38 @@
 
 <body>
 
+  <div class="navbar-fixed">
+    <nav class="green lighten-5" role="navigation">
+      <div class="nav-wrapper container">
+          <a id="logo-container" href="" class="brand-logo"><img style="margin-top: 5px;margin-right: 5px;" src="{% static "img/logo-transparent-100px.png" %}" width="50px" height="50px" alt=""></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#aboutus">About Us</a></li>
+          <li><a href="#sambal">Sambal</a></li>
+          <li><a href="#paste">Paste</a></li>
+          <li><a href="#rempeyek">Rempeyek</a></li>
+          <li><a href="#footer">Contact Us</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li class="teal lighten-4"><a href="{% url 'order' %}">Buy Now</a></li>
+        </ul>
+  
+        
+        <a class="hide-on-med-and-up black-text right" href="order">Buy Now</a>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+  </div>
+  
+  <ul id="nav-mobile" class="sidenav">
+      <li><a href="#">Homepage</a></li>
+      <li><a href="#aboutus">About Us</a></li>
+      <li><a href="#sambal">Sambal</a></li>
+      <li><a href="#paste">Paste</a></li>
+      <li><a href="#rempeyek">Rempeyek</a></li>
+      <li><a href="#footer">Contact Us</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="{% url 'order' %}">Buy Now</a></li>
+  </ul>
+  
 {% block content %}
 {% endblock %}
  
