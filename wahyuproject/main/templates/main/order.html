@@ -12,7 +12,11 @@
           <div class="container">
             <div class="row center">
               <h1  style="font-size:30px;"class="header col s12 light">Wahyu Brand Order Form</h1>
+              {% if user.is_authenticated %}
               <p>(Max. 8 line items per order)</p>
+              {% else %}
+              <p>For Suppliers, please login here: <a href="{% url 'login' %}" class="white-text bold"> Login </a></p>
+              {%endif%}
             </div>
           </div>
         
@@ -28,18 +32,54 @@
                   <div class="collapsible-body">
                                 <form>
                                   <div class="row">
+                                      {% if user.is_authenticated %}
                                     <div class="input-field col s4">
-                                      <input id="name" type="text" class="validate" onchange="updateName()">
+                                        
+                                      <input id="name" type="text" class="validate" onchange="updateName()" 
+                                      {%for dist in dist%}
+                                      {% if dist.username.username == user.username %}
+                                      value="{{dist.name}}"
+                                      {% endif %}
+                                      {%endfor%}
+                                      >
                                       <label for="name">Full Name</label>
                                     </div>
                                     <div class="input-field col s4">
-                                      <input id="contactno" type="text" class="validate">
+                                      <input id="contactno" type="text" class="validate"
+                                      {%for dist in dist%}
+                                      {% if dist.username.username == user.username %}
+                                      value="{{dist.bill2contact_number}}"
+                                      {% endif %}
+                                      {%endfor%}
+                                      >
                                       <label for="contactno">Contact No.</label>
                                     </div>
                                     <div class="input-field col s4">
-                                            <input id="email" type="email" class="validate">
+                                            <input id="email" type="email" class="validate"
+                                            {%for dist in dist%}
+                                            {% if dist.username.username == user.username %}
+                                            value="{{dist.email}}"
+                                            {% endif %}
+                                            {%endfor%}
+                                            >
                                             <label for="email">Email</label>
                                           </div>
+                                    {%else%}
+                                    <div class="input-field col s4">
+                                        
+                                        <input id="name" type="text" class="validate" onchange="updateName()">
+                                        <label for="name">Full Name</label>
+                                      </div>
+                                      <div class="input-field col s4">
+                                        <input id="contactno" type="text" class="validate">
+                                        <label for="contactno">Contact No.</label>
+                                      </div>
+                                      <div class="input-field col s4">
+                                              <input id="email" type="email" class="validate">
+                                              <label for="email">Email</label>
+                                            </div>
+                                    {%endif%}
+
                                   </div>
                             
                                 </form>                        
@@ -406,6 +446,7 @@
                   <div class="collapsible-header"><i class="material-icons">place</i>Delivery<div style="margin-left:auto;margin-right:0;"><span id="address_input"></span></div></div>
                   <div class="collapsible-body">
                     <form>
+                        {% if user.is_authenticated %}
                       <div class="row">
                         <div class="input-field col s12">
                           <input id="remarks" type="text" class="validate" />
@@ -414,7 +455,13 @@
                       </div>
                       <div class="row">
                         <div class="input-field col s12">
-                          <input id="address" type="text" onchange="updateAddress()" />
+                          <input id="address" type="text" onchange="updateAddress()" 
+                          {%for dist in dist%}
+                          {% if dist.username.username == user.username %}
+                          value="{{dist.ship2address.address}}"
+                          {% endif %}
+                          {%endfor%}
+                          />
                           <label for="address">Address</label>  
                         </div>
                       </div>
@@ -445,7 +492,49 @@
                               <input id="deliverydate" type="text" class="datepicker">
                               <label for="deliverydate">Input Date Here</label>  
                             </div>
-                      </div>   
+                      </div>  
+                      {%else%} 
+                      <div class="row">
+                          <div class="input-field col s12">
+                            <input id="remarks" type="text" class="validate" />
+                            <label for="remarks">Order Remarks</label>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <input id="address" type="text" onchange="updateAddress()" />
+                            <label for="address">Address</label>  
+                          </div>
+                        </div>
+                        <div class="row">
+                              <div class="input-field col s6">
+                              <h5>Preffered Delivery Timing</h5>
+                              <p>
+                              <label>
+                                  <input id ="9amto12pm" type="checkbox" />
+                                  <span>9 am - 12 pm</span>
+                              </label>    
+                              </p>
+                              <p>
+                                  <label>
+                                      <input id ="1pmto6pm" type="checkbox" />
+                                      <span>1 pm - 6 pm</span>
+                                  </label>    
+                              </p>
+                              <p>
+                                  <label>
+                                      <input id ="6pmto9pm" type="checkbox" />
+                                      <span>6 pm - 9pm</span>
+                                  </label>    
+                              </p>
+                              </div>
+                              <div class="col s6">
+                                <h5>Preffered Delivery Date</h5>
+                                <input id="deliverydate" type="text" class="datepicker">
+                                <label for="deliverydate">Input Date Here</label>  
+                              </div>
+                        </div> 
+                      {%endif%}
                     </form> 
                   </div>
                 </li>
@@ -800,5 +889,5 @@
 
                              
             </script>
-            
+          
 {% endblock %}

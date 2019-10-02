@@ -1,10 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-
+from django.views.decorators.csrf import csrf_exempt
 from .forms import UploadFileForm
-from .models import Products, Category, Subcategory
+from .models import Products, Category, Subcategory, Distributors, User, Orders
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
 
 import xlrd
 
@@ -22,10 +25,15 @@ def index(request):
 def order(request):
     category = Category.objects.all
     products = Products.objects.all
+    dist = Distributors.objects.all
+    orders = Orders.objects.all
+
     content = {
         'title':"Wahyu Brand: Online Order Form",
         'categories' : category,
-        'products' : products
+        'products' : products,
+        'dist' : dist,
+        'orders' : orders
     }
     return render(request,'main/order.html', content)
     
@@ -59,3 +67,29 @@ def excel(request):
     else:
         form = UploadFileForm()
     return render(request, 'main/excel.html', {'form': form})
+
+def register(request):
+	if request.method == 'POST' :
+		form = UserCreationForm(request.POST)
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password1']
+			user = authenticate(username=username, password=password)
+			login(request,user)
+			return redirect('index')
+	else:
+		form = UserCreationForm()	
+		context = {'form' : form}
+		return render(request, 'registration/register.html', context)
+
+def supplier(request):
+    distributor = Distributors.objects.all
+    orders = Orders.objects.all
+
+    context = {
+        'distributor' : distributor,
+        'order' : orders       
+    }
+
+    return render(request, 'main/supplier.html', context)

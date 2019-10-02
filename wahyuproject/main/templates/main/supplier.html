@@ -1,0 +1,34 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+{% if user.is_authenticated %}
+<h2>Welcome {{ user.username }} <a href="/accounts/logout">(logout)</a></h2>
+
+<div class="container">
+    <div class="section no-pad-bot">
+            
+            <span>
+                    {% for dist in distributor %}
+
+                    {% if dist.username.username == user.username %}
+                    Your Company Name: {{ dist.name }}  
+
+                    {% endif %}
+                    {% endfor %}
+            </span>
+
+    </div>
+</div>
+
+{% else %}	  
+<p>Please <a href="/accounts/login">login</a> to view this page</p>
+{% endif %}
+	  
+</div>
+
+
+
+
+{% endblock %}

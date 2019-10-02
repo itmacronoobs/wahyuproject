@@ -49,7 +49,7 @@
   <div class="navbar-fixed">
     <nav class="green lighten-5" role="navigation">
       <div class="nav-wrapper container">
-          <a id="logo-container" href="" class="brand-logo"><img style="margin-top: 5px;margin-right: 5px;" src="{% static "img/logo-transparent-100px.png" %}" width="50px" height="50px" alt=""></a>
+          <a id="logo-container" href="{% url 'index' %}" class="brand-logo"><img style="margin-top: 5px;margin-right: 5px;" src="{% static "img/logo-transparent-100px.png" %}" width="50px" height="50px" alt=""></a>
         <ul class="right hide-on-med-and-down">
           <li><a href="#aboutus">About Us</a></li>
           <li><a href="#sambal">Sambal</a></li>
@@ -101,6 +101,10 @@
                 <li><i class="tiny material-icons">phone_in_talk</i>Sales: <a class="white-text" href="tel:+6581831445"><b>+65 8183 1445</b></a></li>
                 <li><i class="tiny material-icons">face</i>Customer Service: <a class="white-text" href="tel:+6569108515"><b>+65 6910 8515</b></a></li>
                 <li><i class="tiny material-icons">email</i>Email: <a class="white-text" href="mailto:info@wahyubrand.com"><b>info@wahyubrand.com</b></a></li>
+    
+                <li><i class="tiny material-icons">email</i>Supplier Portal: <a class="white-text" href="{%url 'supplier'%}"><b>Enter</b></a></li>
+
+	  
                 
               </ul>
             </div>
