@@ -25,4 +25,7 @@
     test
 
     tulis something
+
+- cloud sql proxy for MACOS
+./cloud_sql_proxy -instances="wahyuproject-253604:asia-southeast1:wahyuproject-instance"=tcp:3306
     
