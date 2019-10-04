@@ -30,8 +30,8 @@ class Products (models.Model): #Products Details
     barcode = models.CharField(max_length=200)
     unitnetweight = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)])
     grossweight = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)])
-    unitprice = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)])
-    retailprice = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)]) 
+    unitprice = models.FloatField(validators=[MinValueValidator(1), MaxValueValidator(100)])
+    retailprice = models.FloatField(validators=[MinValueValidator(1), MaxValueValidator(100)]) 
     productdescription = models.TextField(max_length=200)
     dimensions = models.CharField(max_length=200)
     carton_weight = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)]) 
@@ -58,6 +58,9 @@ class Discounts (models.Model): #Discounts for customers *Routers
 class ship2(models.Model):
     address = models.CharField(max_length=200)
     contact_number = models.CharField(max_length=200)
+
+    def __str__(self):
+      return self.address
 
     class Meta:
       verbose_name_plural = "ship2"
@@ -121,14 +124,14 @@ class Blog(models.Model):
     def _str_(self):
      return self.title
 
-     class Meta:
+    class Meta:
       verbose_name_plural = "Blog"
 
 class Customers(models.Model): #Product Quality Customers *for main website
     name = models.CharField(max_length=200)
     imgpath = models.TextField(max_length=200)
     def _str_(self):
-     return self.title
+     return self.name
 
     class Meta:
      verbose_name_plural = "Customer"

@@ -8,7 +8,7 @@
 
 <div class="section alert ">
     <span class="closebtn">&times;</span> 
-    <strong>Wahyu Brand</strong> products is now available in Malaysia! <a class="white-text" href="order.html"><u>Buy Now</u></a> or call <a class="white-text" href="tel:+6569108515"><b>+65 6910 8515</b></a>(Singapore)/<a class="white-text" href="tel:+60133402500"><b>+60 13-340 2500</b></a>(Malaysia) for more info!
+    <strong>Wahyu Brand</strong> products is now available in Malaysia! <a class="white-text" href="{% url 'order'%}"><u>Buy Now</u></a> or call <a class="white-text" href="tel:+6569108515"><b>+65 6910 8515</b></a>(Singapore)/<a class="white-text" href="tel:+60133402500"><b>+60 13-340 2500</b></a>(Malaysia) for more info!
 </div>
 <div class="parallax-container valign-wrapper"> 
     <video class="responsive-video" autoplay muted loop>
@@ -185,8 +185,8 @@
                   <a class="btn-floating halfway-fab waves-effect waves-light deep-orange darken-3 activator"><i class="material-icons">library_books</i>></a>
                 </div>
                 <div class="card-content">
-                  <span class="card-title activator grey-text text-darken-4">${{product.retailprice}}</span>
-                  <p><a href="order.html">Buy Now</a></p>
+                  <span class="card-title activator grey-text text-darken-4">${{product.retailprice|floatformat:2}}</span>
+                  <p><a href="{% url 'order'%}">Buy Now</a></p>
                 </div>
                 <div class="card-reveal">
                   <span class="card-title grey-text text-darken-4">{{product.name}}<i class="material-icons right">close</i></span>
@@ -227,8 +227,8 @@
                   <a class="btn-floating halfway-fab waves-effect waves-light deep-orange darken-3 activator"><i class="material-icons">library_books</i>></a>
                 </div>
                 <div class="card-content">
-                  <span style="font-size: 19.5px;" class="card-title activator grey-text text-darken-4">${{product.retailprice}}</span>
-                  <p><a href="order.html">Buy Now</a></p>
+                  <span style="font-size: 19.5px;" class="card-title activator grey-text text-darken-4">${{product.retailprice|floatformat:2}}</span>
+                  <p><a href="{% url 'order'%}">Buy Now</a></p>
                 </div>
                 <div class="card-reveal">
                   <span class="card-title grey-text text-darken-4">{{product.name}}<i class="material-icons right">close</i></span>
@@ -269,8 +269,8 @@
                       <a class="btn-floating halfway-fab waves-effect waves-light deep-orange darken-3 activator"><i class="material-icons">library_books</i>></a>
                     </div>
                     <div class="card-content">
-                      <span class="card-title activator grey-text text-darken-4">${{product.retailprice}}</span>
-                      <p><a href="order.html">Buy Now</a></p>
+                      <span class="card-title activator grey-text text-darken-4">${{product.retailprice|floatformat:2}}</span>
+                      <p><a href="{% url 'order'%}">Buy Now</a></p>
                     </div>
                     <div class="card-reveal">
                       <span class="card-title grey-text text-darken-4">{{product.name}}<i class="material-icons right">close</i></span>
