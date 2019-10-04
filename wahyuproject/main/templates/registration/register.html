@@ -2,19 +2,29 @@
 {% load static %}
 {% block content %}
 
-<h1>Registration</h1>
 
-<form method= "post" action="{% url 'register' %}">
-	{% csrf_token %}
-	
-	{% if form.errors %}
-	<p>There are errors in the form!</p>
-	{% endif %}
-	
-	{{ form }}
-	
-	<input type="submit" value="Register">
-	
-</form>
+
+<div class="container">
+		<p class="center-align">
+		  <div class="card-panel white lighten-3">
+				<h3 id= "Register">Registration</h3>
+				<form method= "post" action="{% url 'register' %}">
+						{% csrf_token %}
+						
+						{% if form.errors %}
+						<p>There are errors in the form!</p>
+						{% endif %}
+						
+						{{ form }}
+						
+						<input type="submit" value="Register">
+						
+					</form>
+			
+		  </div>
+		</p>	
+	</div>	 
+
+
 
 {% endblock %}

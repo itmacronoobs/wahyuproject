@@ -2,15 +2,20 @@
 {% load static %}
 {% block content %}
 
- 	{% if form.errors %}
-	<p>There's something wrong with what you entered!</p>
-	{% endif %}
 	
-	{% if next %}
-	<p>Hey, you can't access that page</p>
-	{% endif %}
 
 	
+	<div class="container">
+		<p class="center-align">
+		  <div class="card-panel white lighten-3">
+				<h3 id= "Register">Supplier Login</h3>
+				{% if form.errors %}
+				<p>There's something wrong with what you entered!</p>
+				{% endif %}
+				
+				{% if next %}
+				<p>Hey, you can't access that page</p>
+				{% endif %}
 			<form id= "loginpage" method = "post" action="{% url 'login' %}">
 				{% csrf_token %}
 			
@@ -21,6 +26,11 @@
 				<input type= "hidden" name= "next" value= "{{ next }}">		
 			</form>
 			<h3 id= "Register"><a href= "/main/register"> Register </a> to login</h3>
+		  </div>
+		</p>	
+	</div>	  
+
+			
 	
 	
 	
