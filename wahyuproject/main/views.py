@@ -28,14 +28,23 @@ def order(request):
     dist = Distributors.objects.all
     orders = Orders.objects.all
 
-    content = {
-        'title':"Wahyu Brand: Online Order Form",
-        'categories' : category,
-        'products' : products,
-        'dist' : dist,
-        'orders' : orders
-    }
-    return render(request,'main/order.html', content)
+    if request.method == 'POST' :
+        name = request.POST.get("name")
+        contactno = request.POST.get("contactno")
+        email = request.POST.get("email")
+        
+
+        return redirect('index')
+    else:
+        content = {
+            'title':"Wahyu Brand: Online Order Form",
+            'categories' : category,
+            'products' : products,
+            'dist' : dist,
+            'orders' : orders,
+            'total_lineItems' : range(1,11)
+        }
+        return render(request,'main/order.html', content)
     
 def excel(request):
     if request.method == 'POST':

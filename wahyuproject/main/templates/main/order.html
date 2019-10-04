@@ -13,7 +13,7 @@
             <div class="row center">
               <h1  style="font-size:30px;"class="header col s12 light">Wahyu Brand Order Form</h1>
               {% if user.is_authenticated %}
-              <p>(Max. 8 line items per order) <a href="{% url 'logout' %}">Logout</a></p>
+              <p>(Max. 10 line items per order) <a href="{% url 'logout' %}">Logout</a></p>
               {% else %}
               <p>For Suppliers, please login here: <a href="{% url 'login' %}" class=""> Login </a></p>
               {%endif%}
@@ -22,7 +22,8 @@
         
         <div class="parallax"><img src="{% static "img/tanushree-rao-1172284-unsplash.jpg" %}" height="900px" alt="Unsplashed background img 3"></div>
       </div>
-
+      <form action="/main/order/" method="post">
+      {% csrf_token %}
       <div class="container">
           <div class="section no-pad-bot">
         
@@ -30,7 +31,7 @@
                 <li class="active">
                   <div class="collapsible-header"><i class="material-icons">face</i>Contact<div style="margin-left:auto;margin-right:0;"><span id="name_input"></span></div></div>
                   <div class="collapsible-body">
-                                <form>
+                                
                                   <div class="row">
                                       {% if user.is_authenticated %}
                                     <div class="input-field col s4">
@@ -82,7 +83,7 @@
 
                                   </div>
                             
-                                </form>                        
+                                                    
                   </div>
                 </li>
                 <li class="active">
@@ -101,342 +102,31 @@
                           </thead>
                   
                           <tbody>
+                          {% for i in total_lineItems %}
                             <tr>
-                              <td>1</td>
-                              <td>
-                                  <div class="input-field col s12">
-                                      <select id="option1" class="browser-default" onchange="option1()">
+                              <td>{{i}}</td>
+                              <td class="input-field col s12">
+                                <div>
+                                    <select id="option{{i}}" class="browser-default" onchange="option{{i}}()">
                                         <option value="nil" selected>Choose your option</option>
-                                        <option value="nil" disabled>Rempeyek</option>
-                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
-                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
-                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
-                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
-                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
-                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
-                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
-                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
-                                        <option value="nil" disabled>Sambal</option>
-                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
-                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
-                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
-                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
-                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
-                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
-                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
-                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
-                                        <option value="nil" disabled>Paste</option>
-                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
-                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
-                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
-                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
-                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
-                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
-                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
-                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
-                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
-                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
+                                        
+                                          
+                                            {% for product in products %}
+                                              
+                                              <option value="{{product.name}} {{product.unitnetweight}}g/${{product.retailprice|floatformat:2}}">{{product.category.name}} | {{product.name}} {{product.unitnetweight}}g/${{product.retailprice|floatformat:2}}</option>
+                                              
+                                            {% endfor %}
+                                        
+                                          
+                                        
                                       </select>
-                                    </div>
+                                </div>
                               </td>
-                              <td><input type="number" id="quantity1" placeholder="0" min="0" onchange="option1()"></td>
-                              <td id="unitprice1">$0.00</td>
-                              <td id="totalprice1">$0.00</td>
+                              <td><input type="number" id="quantity{{i}}" placeholder="0" min="0" onchange="option{{i}}()"></td>
+                              <td id="unitprice{{i}}">$0.00</td>
+                              <td id="totalprice{{i}}">$0.00</td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                              <td>
-                                  <div class="input-field col s12">
-                                      <select id="option2" class="browser-default" onchange="option2()">
-                                        <option value="nil" selected>Choose your option</option>
-                                        <option value="nil" disabled>Rempeyek</option>
-                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
-                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
-                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
-                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
-                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
-                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
-                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
-                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
-                                        <option value="nil" disabled>Sambal</option>
-                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
-                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
-                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
-                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
-                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
-                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
-                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
-                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
-                                        <option value="nil" disabled>Paste</option>
-                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
-                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
-                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
-                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
-                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
-                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
-                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
-                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
-                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
-                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
-                                      </select>
-                                    </div>
-                              </td>
-                              <td><input type="number" id="quantity2" placeholder="0" min="0" onchange="option2()"></td>
-                              <td id="unitprice2">$0.00</td>
-                              <td id="totalprice2">$0.00</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                              <td>
-                                  <div class="input-field col s12">
-                                      <select id="option3" class="browser-default" onchange="option3()">
-                                        <option value="nil" selected>Choose your option</option>
-                                        <option value="nil" disabled>Rempeyek</option>
-                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
-                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
-                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
-                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
-                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
-                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
-                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
-                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
-                                        <option value="nil" disabled>Sambal</option>
-                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
-                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
-                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
-                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
-                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
-                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
-                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
-                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
-                                        <option value="nil" disabled>Paste</option>
-                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
-                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
-                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
-                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
-                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
-                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
-                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
-                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
-                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
-                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
-                                      </select>
-                                    </div>
-                              </td>
-                              <td><input type="number" id="quantity3" placeholder="0" min="0" onchange="option3()"></td>
-                              <td id="unitprice3">$0.00</td>
-                              <td id="totalprice3">$0.00</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                              <td>
-                                  <div class="input-field col s12">
-                                      <select id="option4" class="browser-default" onchange="option4()">
-                                        <option value="nil" selected>Choose your option</option>
-                                        <option value="nil" disabled>Rempeyek</option>
-                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
-                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
-                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
-                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
-                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
-                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
-                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
-                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
-                                        <option value="nil" disabled>Sambal</option>
-                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
-                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
-                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
-                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
-                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
-                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
-                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
-                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
-                                        <option value="nil" disabled>Paste</option>
-                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
-                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
-                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
-                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
-                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
-                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
-                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
-                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
-                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
-                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
-                                      </select>
-                                    </div>
-                              </td>
-                              <td><input type="number" id="quantity4" placeholder="0" min="0" onchange="option4()"></td>
-                              <td id="unitprice4">$0.00</td>
-                              <td id="totalprice4">$0.00</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                              <td>
-                                  <div class="input-field col s12">
-                                      <select id="option5" class="browser-default" onchange="option5()">
-                                        <option value="nil" selected>Choose your option</option>
-                                        <option value="nil" disabled>Rempeyek</option>
-                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
-                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
-                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
-                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
-                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
-                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
-                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
-                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
-                                        <option value="nil" disabled>Sambal</option>
-                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
-                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
-                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
-                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
-                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
-                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
-                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
-                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
-                                        <option value="nil" disabled>Paste</option>
-                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
-                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
-                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
-                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
-                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
-                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
-                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
-                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
-                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
-                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
-                                      </select>
-                                    </div>
-                              </td>
-                              <td><input type="number" id="quantity5" placeholder="0" min="0" onchange="option5()"></td>
-                              <td id="unitprice5">$0.00</td>
-                              <td id="totalprice5">$0.00</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                              <td>
-                                  <div class="input-field col s12">
-                                      <select id="option6" class="browser-default" onchange="option6()">
-                                        <option value="nil" selected>Choose your option</option>
-                                        <option value="nil" disabled>Rempeyek</option>
-                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
-                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
-                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
-                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
-                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
-                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
-                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
-                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
-                                        <option value="nil" disabled>Sambal</option>
-                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
-                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
-                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
-                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
-                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
-                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
-                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
-                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
-                                        <option value="nil" disabled>Paste</option>
-                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
-                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
-                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
-                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
-                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
-                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
-                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
-                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
-                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
-                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
-                                      </select>
-                                    </div>
-                              </td>
-                              <td><input type="number" id="quantity6" placeholder="0" min="0" onchange="option6()"></td>
-                              <td id="unitprice6">$0.00</td>
-                              <td id="totalprice6">$0.00</td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                              <td>
-                                  <div class="input-field col s12">
-                                      <select id="option7" class="browser-default" onchange="option7()">
-                                        <option value="nil" selected>Choose your option</option>
-                                        <option value="nil" disabled>Rempeyek</option>
-                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
-                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
-                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
-                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
-                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
-                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
-                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
-                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
-                                        <option value="nil" disabled>Sambal</option>
-                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
-                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
-                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
-                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
-                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
-                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
-                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
-                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
-                                        <option value="nil" disabled>Paste</option>
-                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
-                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
-                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
-                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
-                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
-                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
-                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
-                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
-                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
-                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
-                                      </select>
-                                    </div>
-                              </td>
-                              <td><input type="number" id="quantity7" placeholder="0" min="0" onchange="option7()"></td>
-                              <td id="unitprice7">$0.00</td>
-                              <td id="totalprice7">$0.00</td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                              <td>
-                                  <div class="input-field col s12">
-                                      <select id="option8" class="browser-default" onchange="option8()">
-                                        <option value="nil" selected>Choose your option</option>
-                                        <option value="nil" disabled>Rempeyek</option>
-                                        <option value="Peanut 400g/$8.00">Peanut 400g/$8.00</option>
-                                        <option value="Green Bean 400g/$8.00">Green Bean 400g/$8.00</option>
-                                        <option value="Cashew 400g/$12.00">Cashew 400g/$12.00</option>
-                                        <option value="Spinach 400g/$12.00">Spinach 400g/$12.00</option>
-                                        <option value="Peanut 2.5kg/$43.00">Peanut 2.5kg/$43.00</option>
-                                        <option value="Green Bean 2.5kg/$43.00">Green Bean 2.5kg/$43.00</option>
-                                        <option value="Cashew 2.5kg/$63.00">Cashew 2.5kg/$63.00</option>
-                                        <option value="Spinach 2.5kg/$63.00">Spinach 2.5kg/$63.00</option>
-                                        <option value="nil" disabled>Sambal</option>
-                                        <option value="Belacan 180g/$2.80">Belacan 180g/$2.80</option>
-                                        <option value="Ayam Penyek 180g/$2.80">Ayam Penyek 180g/$2.80</option>
-                                        <option value="Ijo 180g/$2.80">Ijo 180g/$2.80</option>
-                                        <option value="Otak Udang 180g/$2.80">Otak Udang 180g/$2.80</option>
-                                        <option value="Asam 180g/$2.80">Asam 180g/$2.80</option>
-                                        <option value="Tumis 400g/$6.60">Tumis 400g/$6.60</option>
-                                        <option value="Belado 400g/$6.60">Belado 400g/$6.60</option>
-                                        <option value="Kicap 180g/$2.80">Kicap 180g/$2.80</option>
-                                        <option value="nil" disabled>Paste</option>
-                                        <option value="Rendang Paste 200g/$3.50">Rendang Paste 200g/$3.50</option>
-                                        <option value="Soto Paste 200g/$3.50">Soto Paste 200g/$3.50</option>
-                                        <option value="Bumbu Pecel Paste 200g/$3.50">Bumbu Pecel Paste 200g/$3.50</option>
-                                        <option value="Bumbu Urap Paste 200g/$3.50">Bumbu Urap Paste 200g/$3.50</option>
-                                        <option value="Asam Pedas Paste 200g/$3.50">Asam Pedas Paste 200g/$3.50</option>
-                                        <option value="Rawon Paste 200g/$3.50">Rawon Paste 200g/$3.50</option>
-                                        <option value="Lodeh Paste 200g/$3.50">Lodeh Paste 200g/$3.50</option>
-                                        <option value="Sambal Goreng Paste 200g/$3.50">Sambal Goreng Paste 200g/$3.50</option>
-                                        <option value="Ayam Masak Merah Paste 200g/$3.50">Ayam Masak Merah Paste 200g/$3.50</option>
-                                        <option value="Lemak Cili Padi Paste 200g/$3.50">Lemak Cili Padi Paste 200g/$3.50</option>
-                                      </select>
-                                    </div>
-                              </td>
-                              <td><input type="number" id="quantity8" placeholder="0" min="0" onchange="option8()"></td>
-                              <td id="unitprice8">$0.00</td>
-                              <td id="totalprice8">$0.00</td>
-                            </tr>
+                          {% endfor %}
                           </tbody>
                         </table>
                         </div>
@@ -445,7 +135,7 @@
                 <li class="active">
                   <div class="collapsible-header"><i class="material-icons">place</i>Delivery<div style="margin-left:auto;margin-right:0;"><span id="address_input"></span></div></div>
                   <div class="collapsible-body">
-                    <form>
+                    
                         {% if user.is_authenticated %}
                       <div class="row">
                         <div class="input-field col s12">
@@ -535,7 +225,7 @@
                               </div>
                         </div> 
                       {%endif%}
-                    </form> 
+                    
                   </div>
                 </li>
               </ul>
@@ -543,7 +233,10 @@
       </div>
 
       <div class="container">
-        <div class="section center">           
+        <div class="section center">
+            <button  class="btn waves-effect waves-light brown darken-1" type="submit" name="action">Order Now
+                <i class="material-icons right">airport_shuttle</i>
+            </button>          
             <button  class="btn waves-effect waves-light brown darken-1" type="submit" name="action" onclick="whatsapp()">Order By Whatsapp
                 <i class="material-icons right">perm_phone_msg</i>
             </button>  
@@ -552,7 +245,7 @@
             </button>          
         </div>
       </div>
-
+    </form>
  
       <a class="btn-floating btn-large indigo lighten-2" onclick="topFunction()" id="myBtn" title="Go to top"><i class="material-icons right">vertical_align_top</i></a>
       
@@ -613,116 +306,36 @@
             }
             </script>
             <script>
-                function option1() {
-                  var x = document.getElementById("option1").value;
+                {% for i in total_lineItems %}
+
+                function option{{i}}() {
+                  var x = document.getElementById("option{{i}}").value;
                   var unitprice= x.split("/").pop();
-                  document.getElementById("unitprice1").innerHTML = unitprice;
+                  document.getElementById("unitprice{{i}}").innerHTML = unitprice;
                   var unitprice_noS = x.split("$").pop();
                   var unitprice_int= parseFloat(unitprice_noS);
-                  var y = document.getElementById("quantity1").value;
+                  var y = document.getElementById("quantity{{i}}").value;
                   var totalprice = unitprice_int * y;
-                  document.getElementById("totalprice1").innerHTML = "$" + totalprice.toFixed(2);
+                  document.getElementById("totalprice{{i}}").innerHTML = "$" + totalprice.toFixed(2);
                   updateGrandPrice();
+
                 }
-                function option2() {
-                  var x = document.getElementById("option2").value;
-                  var unitprice= x.split("/").pop();
-                  document.getElementById("unitprice2").innerHTML = unitprice;
-                  var unitprice_noS = x.split("$").pop();
-                  var unitprice_int= parseFloat(unitprice_noS);
-                  var y = document.getElementById("quantity2").value;
-                  var totalprice = unitprice_int * y;
-                  document.getElementById("totalprice2").innerHTML = "$" + totalprice.toFixed(2);
-                  updateGrandPrice();
-                }
-                function option3() {
-                  var x = document.getElementById("option3").value;
-                  var unitprice= x.split("/").pop();
-                  document.getElementById("unitprice3").innerHTML = unitprice;
-                  var unitprice_noS = x.split("$").pop();
-                  var unitprice_int= parseFloat(unitprice_noS);
-                  var y = document.getElementById("quantity3").value;
-                  var totalprice = unitprice_int * y;
-                  document.getElementById("totalprice3").innerHTML = "$" + totalprice.toFixed(2);
-                  updateGrandPrice();
-                }
-                function option4() {
-                  var x = document.getElementById("option4").value;
-                  var unitprice= x.split("/").pop();
-                  document.getElementById("unitprice4").innerHTML = unitprice;
-                  var unitprice_noS = x.split("$").pop();
-                  var unitprice_int= parseFloat(unitprice_noS);
-                  var y = document.getElementById("quantity4").value;
-                  var totalprice = unitprice_int * y;
-                  document.getElementById("totalprice4").innerHTML = "$" + totalprice.toFixed(2);
-                  updateGrandPrice();
-                }
-                function option5() {
-                  var x = document.getElementById("option5").value;
-                  var unitprice= x.split("/").pop();
-                  document.getElementById("unitprice5").innerHTML = unitprice;
-                  var unitprice_noS = x.split("$").pop();
-                  var unitprice_int= parseFloat(unitprice_noS);
-                  var y = document.getElementById("quantity5").value;
-                  var totalprice = unitprice_int * y;
-                  document.getElementById("totalprice5").innerHTML = "$" + totalprice.toFixed(2);
-                  updateGrandPrice();
-                }
-                function option6() {
-                  var x = document.getElementById("option6").value;
-                  var unitprice= x.split("/").pop();
-                  document.getElementById("unitprice6").innerHTML = unitprice;
-                  var unitprice_noS = x.split("$").pop();
-                  var unitprice_int= parseFloat(unitprice_noS);
-                  var y = document.getElementById("quantity6").value;
-                  var totalprice = unitprice_int * y;
-                  document.getElementById("totalprice6").innerHTML = "$" + totalprice.toFixed(2);
-                  updateGrandPrice();
-                }
-                function option7() {
-                  var x = document.getElementById("option7").value;
-                  var unitprice= x.split("/").pop();
-                  document.getElementById("unitprice7").innerHTML = unitprice;
-                  var unitprice_noS = x.split("$").pop();
-                  var unitprice_int= parseFloat(unitprice_noS);
-                  var y = document.getElementById("quantity7").value;
-                  var totalprice = unitprice_int * y;
-                  document.getElementById("totalprice7").innerHTML = "$" + totalprice.toFixed(2);
-                  updateGrandPrice();
-                }
-                function option8() {
-                  var x = document.getElementById("option8").value;
-                  var unitprice= x.split("/").pop();
-                  document.getElementById("unitprice8").innerHTML = unitprice;
-                  var unitprice_noS = x.split("$").pop();
-                  var unitprice_int= parseFloat(unitprice_noS);
-                  var y = document.getElementById("quantity8").value;
-                  var totalprice = unitprice_int * y;
-                  document.getElementById("totalprice8").innerHTML = "$" + totalprice.toFixed(2);
-                  updateGrandPrice();
-                }
+
+                {% endfor %}
+
                 function updateGrandPrice() {
-                  var tp1 = document.getElementById("totalprice1").innerHTML;
-                  var tp1 = parseFloat(tp1.split("$").pop());
-                  var tp2 = document.getElementById("totalprice2").innerHTML;
-                  var tp2 = parseFloat(tp2.split("$").pop());
-                  var tp3 = document.getElementById("totalprice3").innerHTML;
-                  var tp3 = parseFloat(tp3.split("$").pop());
-                  var tp4 = document.getElementById("totalprice4").innerHTML;
-                  var tp4 = parseFloat(tp4.split("$").pop());
-                  var tp5 = document.getElementById("totalprice5").innerHTML;
-                  var tp5 = parseFloat(tp5.split("$").pop());
-                  var tp6 = document.getElementById("totalprice6").innerHTML;
-                  var tp6 = parseFloat(tp6.split("$").pop());
-                  var tp7 = document.getElementById("totalprice7").innerHTML;
-                  var tp7 = parseFloat(tp7.split("$").pop());
-                  var tp8 = document.getElementById("totalprice8").innerHTML;
-                  var tp8 = parseFloat(tp8.split("$").pop());
-                  var gt = tp1 + tp2 + tp3 + tp4 + tp5 + tp6 + tp7 + tp8;
+                  var gt = 0;
+                  {% for i in total_lineItems %}
+                  var tp{{i}} = document.getElementById("totalprice{{i}}").innerHTML;
+                  var tp{{i}} = parseFloat(tp{{i}}.split("$").pop());
+                  gt = gt + tp{{i}};     
+                  {% endfor %}
+                  /* var gt = tp1 + tp2 + tp3 + tp4 + tp5 + tp6 + tp7 + tp8 + tp9 + tp10; */
                   var x = document.getElementById("grand_total");
                   gt = gt.toFixed(2);
                   x.innerHTML = (gt<200) ? "$" + gt + " + $10.00" : "$" + gt;
-                }
+                  }
+
                 function whatsapp() {
                   var name = document.getElementById('name').value;
                   var contactno = document.getElementById('contactno').value;
