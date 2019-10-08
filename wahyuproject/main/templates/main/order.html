@@ -107,22 +107,18 @@
                               <td>{{i}}</td>
                               <td class="input-field col s12">
                                 <div>
-                                    <select id="option{{i}}" class="browser-default" onchange="option{{i}}()">
+                                    <select id="option{{i}}" class="browser-default" onchange="f_option{{i}}();">
                                         <option value="nil" selected>Choose your option</option>
                                         
                                           
-                                            {% for product in products %}
-                                              
-                                              <option value="{{product.name}} {{product.unitnetweight}}g/${{product.retailprice|floatformat:2}}">{{product.category.name}} | {{product.name}} {{product.unitnetweight}}g/${{product.retailprice|floatformat:2}}</option>
-                                              
-                                            {% endfor %}
+
                                         
                                           
                                         
                                       </select>
                                 </div>
                               </td>
-                              <td><input type="number" id="quantity{{i}}" placeholder="0" min="0" onchange="option{{i}}()"></td>
+                              <td><input type="number" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();"></td>
                               <td id="unitprice{{i}}">$0.00</td>
                               <td id="totalprice{{i}}">$0.00</td>
                             </tr>
@@ -280,6 +276,9 @@
             var instance = M.Collapsible.init(elem, {
                 accordion: false
             });
+            {% for product in products %}                                                        
+            $('.browser-default').append('<option value="{{product.name}} {{product.unitnetweight}}g/${{product.retailprice|floatformat:2}}">{{product.category.name}} | {{product.name}} {{product.unitnetweight}}g/${{product.retailprice|floatformat:2}}</option>');
+            {% endfor %}
         });
       </script>
       <script>
@@ -308,7 +307,7 @@
             <script>
                 {% for i in total_lineItems %}
 
-                function option{{i}}() {
+                function f_option{{i}}() {
                   var x = document.getElementById("option{{i}}").value;
                   var unitprice= x.split("/").pop();
                   document.getElementById("unitprice{{i}}").innerHTML = unitprice;
