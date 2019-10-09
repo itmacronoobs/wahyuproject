@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-
+from django.db.models import FloatField, Sum, F
+from django.db.models.functions import Coalesce
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
@@ -30,7 +31,8 @@ def order(request):
 
     if request.method == 'POST':
         neworder = Orders()
-        neworder.orderno = "123456"
+        neworder.orderno = "0"
+        neworder.invoiceno = "/INV/VI/2015"
         neworder.name = request.POST.get("name")
         neworder.contactno = request.POST.get("contactno")
         neworder.email = request.POST.get("email")
@@ -194,7 +196,7 @@ def order(request):
 
         neworder.save()
 
-        return redirect('index')
+        return redirect('supplier')
     else:
         content = {
             'title':"Wahyu Brand: Online Order Form",
@@ -253,12 +255,12 @@ def register(request):
 		return render(request, 'registration/register.html', context)
 
 def supplier(request):
-    distributor = Distributors.objects.all
-    orders = Orders.objects.all
-
+    distributor = Distributors.objects.filter(username__username=request.user)
+    orders = Orders.objects.filter(distributor__username=request.user).annotate(sum1=Sum(Coalesce(F('line1__unitprice'),0)*F('qty1')+Coalesce(F('line2__unitprice'),0)*F('qty2')+Coalesce(F('line3__unitprice'),0)*F('qty3')+Coalesce(F('line4__unitprice'),0)*F('qty4')+Coalesce(F('line5__unitprice'),0)*F('qty5')+Coalesce(F('line6__unitprice'),0)*F('qty6')+Coalesce(F('line7__unitprice'),0)*F('qty7')+Coalesce(F('line8__unitprice'),0)*F('qty8')+Coalesce(F('line9__unitprice'),0)*F('qty9')+Coalesce(F('line10__unitprice'),0)*F('qty10')+Coalesce(F('line11__unitprice'),0)*F('qty11')+Coalesce(F('line12__unitprice'),0)*F('qty12')+Coalesce(F('line13__unitprice'),0)*F('qty13')+Coalesce(F('line14__unitprice'),0)*F('qty14')+Coalesce(F('line15__unitprice'),0)*F('qty15')+Coalesce(F('line16__unitprice'),0)*F('qty16')+Coalesce(F('line17__unitprice'),0)*F('qty17')+Coalesce(F('line18__unitprice'),0)*F('qty18')+Coalesce(F('line19__unitprice'),0)*F('qty19')+Coalesce(F('line20__unitprice'),0)*F('qty20')+Coalesce(F('line21__unitprice'),0)*F('qty21')+Coalesce(F('line22__unitprice'),0)*F('qty22')+Coalesce(F('line23__unitprice'),0)*F('qty23')+Coalesce(F('line24__unitprice'),0)*F('qty24')+Coalesce(F('line25__unitprice'),0)*F('qty25')+Coalesce(F('line26__unitprice'),0)*F('qty26')+Coalesce(F('line27__unitprice'),0)*F('qty27')+Coalesce(F('line28__unitprice'),0)*F('qty28')+Coalesce(F('line29__unitprice'),0)*F('qty29')+Coalesce(F('line30__unitprice'),0)*F('qty30'),output_field=FloatField()))
+    
     context = {
         'distributor' : distributor,
-        'order' : orders       
+        'orders' : orders       
     }
 
     return render(request, 'main/supplier.html', context)

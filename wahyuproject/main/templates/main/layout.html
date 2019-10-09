@@ -51,12 +51,12 @@
       <div class="nav-wrapper container">
           <a id="logo-container" href="{% url 'index' %}" class="brand-logo"><img style="margin-top: 5px;margin-right: 5px;" src="{% static "img/logo-transparent-100px.png" %}" width="50px" height="50px" alt=""></a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="#aboutus">About Us</a></li>
-          <li><a href="#sambal">Sambal</a></li>
-          <li><a href="#paste">Paste</a></li>
-          <li><a href="#rempeyek">Rempeyek</a></li>
-          <li><a href="#footer">Contact Us</a></li>
-          <li><a href="blog.html">Blog</a></li>
+          <li><a href="{% url 'index'%}#aboutus">About Us</a></li>
+          <li><a href="{% url 'index'%}#sambal">Sambal</a></li>
+          <li><a href="{% url 'index'%}#paste">Paste</a></li>
+          <li><a href="{% url 'index'%}#rempeyek">Rempeyek</a></li>
+          <li><a href="{% url 'index'%}#footer">Contact Us</a></li>
+          <li><a href="">Blog</a></li>
           <li class="teal lighten-4"><a href="{% url 'order' %}">Buy Now</a></li>
         </ul>
   

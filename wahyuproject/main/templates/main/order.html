@@ -13,7 +13,7 @@
             <div class="row center">
               <h1  style="font-size:30px;"class="header col s12 light">Wahyu Brand Order Form</h1>
               {% if user.is_authenticated %}
-              <p>(Max. 10 line items per order) <a href="{% url 'logout' %}">Logout</a></p>
+              <p>(Max. 30 line items per order) <a href="{% url 'logout' %}">Logout</a></p>
               {% else %}
               <p>For Suppliers, please login here: <a href="{% url 'login' %}" class=""> Login </a></p>
               {%endif%}
