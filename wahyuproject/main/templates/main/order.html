@@ -36,7 +36,7 @@
                                       {% if user.is_authenticated %}
                                     <div class="input-field col s4">
                                         
-                                      <input id="name" type="text" class="validate" onchange="updateName()" 
+                                      <input name="name" id="name" type="text" class="validate" onchange="updateName()" 
                                       {%for dist in dist%}
                                       {% if dist.username.username == user.username %}
                                       value="{{dist.name}}"
@@ -46,7 +46,7 @@
                                       <label for="name">Full Name</label>
                                     </div>
                                     <div class="input-field col s4">
-                                      <input id="contactno" type="text" class="validate"
+                                      <input name="contactno" id="contactno" type="text" class="validate"
                                       {%for dist in dist%}
                                       {% if dist.username.username == user.username %}
                                       value="{{dist.bill2contact_number}}"
@@ -56,7 +56,7 @@
                                       <label for="contactno">Contact No.</label>
                                     </div>
                                     <div class="input-field col s4">
-                                            <input id="email" type="email" class="validate"
+                                            <input name="email" id="email" type="email" class="validate"
                                             {%for dist in dist%}
                                             {% if dist.username.username == user.username %}
                                             value="{{dist.email}}"
@@ -68,15 +68,15 @@
                                     {%else%}
                                     <div class="input-field col s4">
                                         
-                                        <input id="name" type="text" class="validate" onchange="updateName()">
+                                        <input name="name" id="name" type="text" class="validate" onchange="updateName()">
                                         <label for="name">Full Name</label>
                                       </div>
                                       <div class="input-field col s4">
-                                        <input id="contactno" type="text" class="validate">
+                                        <input name="contactno" id="contactno" type="text" class="validate">
                                         <label for="contactno">Contact No.</label>
                                       </div>
                                       <div class="input-field col s4">
-                                              <input id="email" type="email" class="validate">
+                                              <input name="email" id="email" type="email" class="validate">
                                               <label for="email">Email</label>
                                             </div>
                                     {%endif%}
@@ -107,8 +107,8 @@
                               <td>{{i}}</td>
                               <td class="input-field col s12">
                                 <div>
-                                    <select id="option{{i}}" class="browser-default" onchange="f_option{{i}}();">
-                                        <option value="nil" selected>Choose your option</option>
+                                    <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();">
+                                        <option value="0" selected>Choose your option</option>
                                         
                                           
 
@@ -118,7 +118,7 @@
                                       </select>
                                 </div>
                               </td>
-                              <td><input type="number" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();"></td>
+                              <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="0"></td>
                               <td id="unitprice{{i}}">$0.00</td>
                               <td id="totalprice{{i}}">$0.00</td>
                             </tr>
@@ -141,7 +141,7 @@
                       </div>
                       <div class="row">
                         <div class="input-field col s12">
-                          <input id="address" type="text" onchange="updateAddress()" 
+                          <input name="address" id="address" type="text" onchange="updateAddress()" 
                           {%for dist in dist%}
                           {% if dist.username.username == user.username %}
                           value="{{dist.ship2address.address}}"
@@ -156,26 +156,26 @@
                             <h5>Preffered Delivery Timing</h5>
                             <p>
                             <label>
-                                <input id ="9amto12pm" type="checkbox" />
+                                <input name="prefferedtime" id ="9amto12pm" type="checkbox" value="9amto12pm"/>
                                 <span>9 am - 12 pm</span>
                             </label>    
                             </p>
                             <p>
                                 <label>
-                                    <input id ="1pmto6pm" type="checkbox" />
+                                    <input name="prefferedtime" id ="1pmto6pm" type="checkbox" value="1pmto6pm"/>
                                     <span>1 pm - 6 pm</span>
                                 </label>    
                             </p>
                             <p>
                                 <label>
-                                    <input id ="6pmto9pm" type="checkbox" />
+                                    <input name="prefferedtime" id ="6pmto9pm" type="checkbox" value="6pmto9pm"/>
                                     <span>6 pm - 9pm</span>
                                 </label>    
                             </p>
                             </div>
                             <div class="col s6">
                               <h5>Preffered Delivery Date</h5>
-                              <input id="deliverydate" type="text" class="datepicker">
+                              <input name="deliverydate" id="deliverydate" type="text" class="datepicker">
                               <label for="deliverydate">Input Date Here</label>  
                             </div>
                       </div>  
@@ -188,7 +188,7 @@
                         </div>
                         <div class="row">
                           <div class="input-field col s12">
-                            <input id="address" type="text" onchange="updateAddress()" />
+                            <input name="address" id="address" type="text" onchange="updateAddress()" />
                             <label for="address">Address</label>  
                           </div>
                         </div>
@@ -197,26 +197,26 @@
                               <h5>Preffered Delivery Timing</h5>
                               <p>
                               <label>
-                                  <input id ="9amto12pm" type="checkbox" />
+                                  <input name="prefferedtime" id ="9amto12pm" type="checkbox" value="9amto12pm"/>
                                   <span>9 am - 12 pm</span>
                               </label>    
                               </p>
                               <p>
                                   <label>
-                                      <input id ="1pmto6pm" type="checkbox" />
+                                      <input name="prefferedtime" id ="1pmto6pm" type="checkbox" value="1pmto6pm"/>
                                       <span>1 pm - 6 pm</span>
                                   </label>    
                               </p>
                               <p>
                                   <label>
-                                      <input id ="6pmto9pm" type="checkbox" />
+                                      <input name="prefferedtime" id ="6pmto9pm" type="checkbox" value="6pmto9pm"/>
                                       <span>6 pm - 9pm</span>
                                   </label>    
                               </p>
                               </div>
                               <div class="col s6">
                                 <h5>Preffered Delivery Date</h5>
-                                <input id="deliverydate" type="text" class="datepicker">
+                                <input name="deliverydate" id="deliverydate" type="text" class="datepicker">
                                 <label for="deliverydate">Input Date Here</label>  
                               </div>
                         </div> 
@@ -277,7 +277,7 @@
                 accordion: false
             });
             {% for product in products %}                                                        
-            $('.browser-default').append('<option value="{{product.name}} {{product.unitnetweight}}g/${{product.retailprice|floatformat:2}}">{{product.category.name}} | {{product.name}} {{product.unitnetweight}}g/${{product.retailprice|floatformat:2}}</option>');
+            $('.browser-default').append('<option value="{{product.pk}}">{{product.category.name}} | {{product.name}} {{product.unitnetweight}}g/${{product.retailprice|floatformat:2}}</option>');
             {% endfor %}
         });
       </script>
@@ -308,7 +308,8 @@
                 {% for i in total_lineItems %}
 
                 function f_option{{i}}() {
-                  var x = document.getElementById("option{{i}}").value;
+                  var e = document.getElementById("option{{i}}");
+                  var x = e.options[e.selectedIndex].text;
                   var unitprice= x.split("/").pop();
                   document.getElementById("unitprice{{i}}").innerHTML = unitprice;
                   var unitprice_noS = x.split("$").pop();
