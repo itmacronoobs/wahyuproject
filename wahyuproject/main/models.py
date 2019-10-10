@@ -42,7 +42,6 @@ class Products (models.Model): #Products Details
     imgpath = models.TextField(max_length=200)
     def __str__(self):
         return self.name
-
     class Meta:
       verbose_name_plural = "Product"
 
@@ -216,5 +215,71 @@ class Orders(models.Model):
 
     created_at = models.DateTimeField(default=datetime.now, blank=True)
     
+    def line1_total(self):
+        return self.line1.unitprice * self.qty1
+    
+    def line2_total(self):
+        return self.line2.unitprice * self.qty2
+    
+    def line3_total(self):
+        return self.line3.unitprice * self.qty3
+    
+    def line4_total(self):
+        return self.line4.unitprice * self.qty4
+
+    def line5_total(self):
+        return self.line5.unitprice * self.qty5
+
+    def line6_total(self):
+        return self.line6.unitprice * self.qty6
+    def line7_total(self):
+        return self.line7.unitprice * self.qty7
+    def line8_total(self):
+        return self.line8.unitprice * self.qty8
+    def line9_total(self):
+        return self.line9.unitprice * self.qty9
+    def line10_total(self):
+        return self.line10.unitprice * self.qty10
+    def line11_total(self):
+        return self.line11.unitprice * self.qty11
+    def line12_total(self):
+        return self.line12.unitprice * self.qty12
+    def line13_total(self):
+        return self.line13.unitprice * self.qty13
+    def line14_total(self):
+        return self.line14.unitprice * self.qty14
+    def line15_total(self):
+        return self.line15.unitprice * self.qty15
+    def line16_total(self):
+        return self.line16.unitprice * self.qty16
+    def line17_total(self):
+        return self.line17.unitprice * self.qty17
+    def line18_total(self):
+        return self.line18.unitprice * self.qty18
+    def line19_total(self):
+        return self.line19.unitprice * self.qty19
+    def line20_total(self):
+        return self.line20.unitprice * self.qty20
+    def line21_total(self):
+        return self.line21.unitprice * self.qty21
+    def line22_total(self):
+        return self.line22.unitprice * self.qty22
+    def line23_total(self):
+        return self.line23.unitprice * self.qty23
+    def line24_total(self):
+        return self.line24.unitprice * self.qty24
+    def line25_total(self):
+        return self.line25.unitprice * self.qty25
+    def line26_total(self):
+        return self.line26.unitprice * self.qty26
+    def line27_total(self):
+        return self.line27.unitprice * self.qty27
+    def line28_total(self):
+        return self.line28.unitprice * self.qty28
+    def line29_total(self):
+        return self.line29.unitprice * self.qty29
+    def line30_total(self):
+        return self.line30.unitprice * self.qty30
+
     class Meta:
       verbose_name_plural = "Order"

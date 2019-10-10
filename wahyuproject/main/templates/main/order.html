@@ -22,7 +22,7 @@
         
         <div class="parallax"><img src="{% static "img/tanushree-rao-1172284-unsplash.jpg" %}" height="900px" alt="Unsplashed background img 3"></div>
       </div>
-      <form action="/main/order/" method="post">
+      <form action="{%url 'order' %}" method="post">
       {% csrf_token %}
       <div class="container">
           <div class="section no-pad-bot">

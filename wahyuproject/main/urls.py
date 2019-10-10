@@ -8,7 +8,8 @@ urlpatterns = [
 	url(r'^$', views.index, name= 'index'),
 	url(r'main', views.index, name= 'main'),
 	url(r'excel', views.excel, name= 'excel'),
-	url(r'order', views.order, name= 'order'),
+	url(r'^order$', views.order, name= 'order'),
 	path('register', views.register, name='register'),
 	url(r'^supplier/', views.supplier, name= 'supplier'),
+	path('order/<int:pk>/', views.OrderDetailView.as_view(), name='detail'),
 ]

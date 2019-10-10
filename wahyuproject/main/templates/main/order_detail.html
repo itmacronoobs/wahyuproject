@@ -1,0 +1,863 @@
+
+ {% extends 'main/layout.html' %}
+ {% load staticfiles %}
+ {% block content %}
+
+
+ <div class="container">
+        <div class="section no-pad-bot">
+      
+          <ul class="collapsible expandable">
+              <li class="active">
+                <div class="collapsible-header"><i class="material-icons">face</i>Contact (Order No:{{order.pk}})<div style="margin-left:auto;margin-right:0;"><span id="name_input"></span></div></div>
+                <div class="collapsible-body">
+                        <div class="row">
+                                <div class="input-field col s4">
+                                        
+                                        <input name="name" id="name" type="text" class="validate" onchange="updateName()" 
+                                        
+                                        value="{{order.distributor.name}}"
+                                        disabled
+                                        >
+                                        <label for="name">Full Name</label>
+                                      </div>
+                                      <div class="input-field col s4">
+                                        <input name="contactno" id="contactno" type="text" class="validate"
+                                        
+                                        value="{{order.distributor.bill2contact_number}}"
+                                        disabled
+                                        >
+                                        <label for="contactno">Contact No.</label>
+                                      </div>
+                                      <div class="input-field col s4">
+                                              <input name="email" id="email" type="email" class="validate"
+                                              
+                                              value="{{order.distributor.email}}"
+                                              disabled
+                                              >
+                                              <label for="email">Email</label>
+                                            </div>
+                        </div>
+                </div>
+                </li>
+                <li class="active">
+                        <div class="collapsible-header"><i class="material-icons">whatshot</i>Order ($10 Delivery Charge for orders below $200) <div style="margin-left:auto;margin-right:0;">Grand Total: <span id="grand_total">{%if order.sum1 > 200%}
+                            ${{order.sum1}}
+                            {%else%}
+                            ${{order.sum1}} + $10.00
+                            {%endif%}
+                        </span></div></div>
+                        <div class="collapsible-body">
+                            <div style="max-height:400px;overflow:auto;">
+                            <table class="striped highlight">
+                                <thead>
+                                  <tr>
+                                      <th>S/N</th>
+                                      <th style="min-width:200px">Item Name/Size</th>
+                                      <th>Quantity</th>
+                                      <th>Unit Price</th>
+                                      <th>Total Price</th>
+                                  </tr>
+                                </thead>
+                        
+                                <tbody>
+                                    {% if order.line1.unitprice != None %}
+                                  <tr>
+                                    <td>1</td>
+                                    <td class="input-field col s12">
+                                      <div>
+                                          <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                              <option value="0" selected>{{order.line1}}</option>
+                                            </select>
+                                      </div>
+                                    </td>
+                                    <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty1}}" disabled disabled></td>
+                                    <td id="">${{order.line1.unitprice|floatformat:2}}</td>
+                                    <td id="">${{order.line1_total|floatformat:2}}</td>
+                                  </tr>
+                                   {%endif%}
+                                   {% if order.line2.unitprice != None %}
+                                  <tr>
+                                        <td>2</td>
+                                        <td class="input-field col s12">
+                                          <div>
+                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                  <option value="0" selected>{{order.line2}}</option>
+                                                </select>
+                                          </div>
+                                        </td>
+                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty2}}" disabled></td>
+                                        <td id="">${{order.line2.unitprice|floatformat:2}}</td>
+                                        <td id="">${{order.line2_total|floatformat:2}}</td>
+                                      </tr>
+                                      {%endif%}
+                                      {% if order.line3.unitprice != None %}
+                                      <tr>
+                                            <td>3</td>
+                                            <td class="input-field col s12">
+                                              <div>
+                                                  <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                      <option value="0" selected>{{order.line3}}</option>
+                                                    </select>
+                                              </div>
+                                            </td>
+                                            <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty3}}" disabled></td>
+                                            <td id="">${{order.line3.unitprice|floatformat:2}}</td>
+                                            <td id="">${{order.line3_total|floatformat:2}}</td>
+                                          </tr>
+                                          {%endif%}
+                                          {% if order.line4.unitprice != None %}
+                                          <tr>
+                                                <td>4</td>
+                                                <td class="input-field col s12">
+                                                  <div>
+                                                      <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                          <option value="0" selected>{{order.line4}}</option>
+                                                        </select>
+                                                  </div>
+                                                </td>
+                                                <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty4}}" disabled></td>
+                                                <td id="">${{order.line4.unitprice|floatformat:2}}</td>
+                                                <td id="">${{order.line4_total|floatformat:2}}</td>
+                                              </tr>
+                                              {%endif%}
+                                              {% if order.line5.unitprice != None %}
+                                              <tr>
+                                                    <td>5</td>
+                                                    <td class="input-field col s12">
+                                                      <div>
+                                                          <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                              <option value="0" selected>{{order.line5}}</option>
+                                                            </select>
+                                                      </div>
+                                                    </td>
+                                                    <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty5}}" disabled></td>
+                                                    <td id="">${{order.line5.unitprice|floatformat:2}}</td>
+                                                    <td id="">${{order.line5_total|floatformat:2}}</td>
+                                                  </tr>
+                                                  {%endif%}
+                                                  {% if order.line6.unitprice != None %}
+                                                  <tr>
+                                                        <td>6</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line6}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty6}}" disabled></td>
+                                                        <td id="">${{order.line6.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line6_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line7.unitprice != None %}
+                                                  <tr>
+                                                        <td>7</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line7}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty7}}" disabled></td>
+                                                        <td id="">${{order.line7.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line7_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line8.unitprice != None %}
+                                                  <tr>
+                                                        <td>8</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line8}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty8}}" disabled></td>
+                                                        <td id="">${{order.line8.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line8_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line9.unitprice != None %}
+                                                  <tr>
+                                                        <td>9</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line9}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty9}}" disabled></td>
+                                                        <td id="">${{order.line9.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line9_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line10.unitprice != None %}
+                                                  <tr>
+                                                        <td>10</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line10}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty10}}" disabled></td>
+                                                        <td id="">${{order.line10.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line10_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line11.unitprice != None %}
+                                                  <tr>
+                                                        <td>11</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line11}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty11}}" disabled></td>
+                                                        <td id="">${{order.line11.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line11_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line12.unitprice != None %}
+                                                  <tr>
+                                                        <td>12</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line12}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty12}}" disabled></td>
+                                                        <td id="">${{order.line12.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line12_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line13.unitprice != None %}
+                                                  <tr>
+                                                        <td>13</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line13}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty13}}" disabled></td>
+                                                        <td id="">${{order.line13.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line13_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line14.unitprice != None %}
+                                                  <tr>
+                                                        <td>14</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line14}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty14}}" disabled></td>
+                                                        <td id="">${{order.line14.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line14_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line15.unitprice != None %}
+                                                  <tr>
+                                                        <td>15</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line15}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty15}}" disabled></td>
+                                                        <td id="">${{order.line15.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line15_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line16.unitprice != None %}
+                                                  <tr>
+                                                        <td>16</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line16}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty16}}" disabled></td>
+                                                        <td id="">${{order.line16.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line16_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line17.unitprice != None %}
+                                                  <tr>
+                                                        <td>17</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line17}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty17}}" disabled></td>
+                                                        <td id="">${{order.line17.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line17_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line18.unitprice != None %}
+                                                  <tr>
+                                                        <td>18</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line18}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty18}}" disabled></td>
+                                                        <td id="">${{order.line18.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line18_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line19.unitprice != None %}
+                                                  <tr>
+                                                        <td>19</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line19}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty19}}" disabled></td>
+                                                        <td id="">${{order.line19.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line19_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line20.unitprice != None %}
+                                                  <tr>
+                                                        <td>20</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line20}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty20}}" disabled></td>
+                                                        <td id="">${{order.line20.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line20_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line21.unitprice != None %}
+                                                  <tr>
+                                                        <td>21</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line21}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty21}}" disabled></td>
+                                                        <td id="">${{order.line21.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line21_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line22.unitprice != None %}
+                                                  <tr>
+                                                        <td>22</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line22}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty22}}" disabled></td>
+                                                        <td id="">${{order.line22.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line22_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line23.unitprice != None %}
+                                                  <tr>
+                                                        <td>23</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line23}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty23}}" disabled></td>
+                                                        <td id="">${{order.line23.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line23_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line24.unitprice != None %}
+                                                  <tr>
+                                                        <td>24</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line24}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty24}}" disabled></td>
+                                                        <td id="">${{order.line24.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line24_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line25.unitprice != None %}
+                                                  <tr>
+                                                        <td>25</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line25}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty25}}" disabled></td>
+                                                        <td id="">${{order.line25.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line25_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line26.unitprice != None %}
+                                                  <tr>
+                                                        <td>26</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line26}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty26}}" disabled></td>
+                                                        <td id="">${{order.line26.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line26_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line27.unitprice != None %}
+                                                  <tr>
+                                                        <td>27</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line27}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty27}}" disabled></td>
+                                                        <td id="">${{order.line27.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line27_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line28.unitprice != None %}
+                                                  <tr>
+                                                        <td>28</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line28}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty28}}" disabled></td>
+                                                        <td id="">${{order.line28.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line28_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line29.unitprice != None %}
+                                                  <tr>
+                                                        <td>29</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line29}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty29}}" disabled></td>
+                                                        <td id="">${{order.line29.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line29_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                                      {% if order.line30.unitprice != None %}
+                                                  <tr>
+                                                        <td>30</td>
+                                                        <td class="input-field col s12">
+                                                          <div>
+                                                              <select name="option{{i}}" id="option{{i}}" class="browser-default" onchange="f_option{{i}}();" disabled>
+                                                                  <option value="0" selected>{{order.line30}}</option>
+                                                                </select>
+                                                          </div>
+                                                        </td>
+                                                        <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty30}}" disabled></td>
+                                                        <td id="">${{order.line30.unitprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line30_total|floatformat:2}}</td>
+                                                      </tr>
+                                                      {%endif%}
+                                </tbody>
+                              </table>
+                              </div>
+                        </div>  
+                      </li>
+                      <li class="active">
+                            <div class="collapsible-header"><i class="material-icons">place</i>Delivery<div style="margin-left:auto;margin-right:0;"><span id="address_input"></span></div></div>
+                            <div class="collapsible-body">
+                              
+                                  
+                                <div class="row">
+                                  <div class="input-field col s12">
+                                    <input id="remarks" type="text" class="validate" disabled/>
+                                    <label for="remarks">Order Remarks</label>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="input-field col s12">
+                                    <input name="address" id="address" type="text" onchange="updateAddress()" 
+                                    
+                                    value="{{order.distributor.ship2address.address}}"
+                                    disabled
+                                    />
+                                    <label for="address">Address</label>  
+                                  </div>
+                                </div>
+                                <div class="row">
+                                      <div class="input-field col s6">
+                                      <h5>Preffered Delivery Timing</h5>
+                                      {% if order.prefferedtiming == "9amto12pm"%}
+                                      <p>
+                                      <label>
+                                          <input name="prefferedtime" id ="9amto12pm" type="checkbox" value="9amto12pm"
+                                          
+                                          checked
+                                          disabled
+                                          />
+                                          <span>9 am - 12 pm</span>
+                                      </label>    
+                                      </p>
+                                      {%endif%}
+                                      {% if order.prefferedtiming == "1pmto6pm"%}
+                                      <p>
+                                          <label>
+                                              <input name="prefferedtime" id ="1pmto6pm" type="checkbox" value="1pmto6pm"
+                                              
+                                                checked
+                                                disabled
+                                              />
+                                              <span>1 pm - 6 pm</span>
+                                          </label>    
+                                      </p>
+                                      {%endif%}
+                                      {% if order.prefferedtiming == "6pmto9pm"%}
+                                      <p>
+                                          <label>
+                                              <input name="prefferedtime" id ="6pmto9pm" type="checkbox" value="6pmto9pm"
+                                              
+                                                checked
+                                                disabled
+                                                
+                                              />
+                                              <span>6 pm - 9pm</span>
+                                          </label>    
+                                      </p>
+                                      {%endif%}
+                                      </div>
+                                      <div class="col s6">
+                                        <h5>Preffered Delivery Date</h5>
+                                        <input name="deliverydate" id="deliverydate" type="text" class="datepicker"value="{{order.preffereddate}}" disabled>
+                                        <label for="deliverydate">Input Date Here</label>  
+                                      </div>
+                                </div>  
+                            </div>
+                        </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+            <div class="section center">
+                <a href="{% url 'supplier'%}">
+                <button  class="btn waves-effect waves-light brown darken-1" >Go Back
+                    <i class="material-icons right">send</i>
+                </button>          
+            </a> 
+            </div>
+          </div>
+ 
+      <a class="btn-floating btn-large indigo lighten-2" onclick="topFunction()" id="myBtn" title="Go to top"><i class="material-icons right">vertical_align_top</i></a>
+      
+    
+      <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="js/materialize.js"></script>
+      <script src="js/init.js"></script>
+      <script>
+      $(document).ready(function(){
+
+            
+            $('#google').change(function(){
+                if(this.checked)
+                    $('#searchterm').fadeIn('fast');
+                else
+                    $('#searchterm').fadeOut('fast');
+            });
+            $('#agent').change(function(){
+                if(this.checked)
+                    $('#agentname').fadeIn('fast');
+                else
+                    $('#agentname').fadeOut('fast');
+            });
+            $('#others').change(function(){
+                if(this.checked)
+                    $('#othersdesc').fadeIn('fast');
+                else
+                    $('#othersdesc').fadeOut('fast');
+            });
+
+            var elem = document.querySelector('.collapsible.expandable');
+            var instance = M.Collapsible.init(elem, {
+                accordion: false
+            });
+            {% for product in products %}                                                        
+            $('.browser-default').append('<option value="{{product.pk}}">{{product.category.name}} | {{product.name}} {{product.unitnetweight}}g/${{product.retailprice|floatformat:2}}</option>');
+            {% endfor %}
+        });
+      </script>
+      <script>
+
+            
+
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function() {scrollFunction()};
+            
+            function scrollFunction() {
+              if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("myBtn").style.visibility = "visible";
+                document.getElementById("myBtn").style.opacity = "1";
+              } else {
+                document.getElementById("myBtn").style.visibility = "hidden";
+                document.getElementById("myBtn").style.opacity = "0";
+              }
+            }
+            
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+              document.body.scrollTop = 0;
+              document.documentElement.scrollTop = 0;
+            }
+            </script>
+            <script>
+                {% for i in total_lineItems %}
+
+                function f_option{{i}}() {
+                  var e = document.getElementById("option{{i}}");
+                  var x = e.options[e.selectedIndex].text;
+                  var unitprice= x.split("/").pop();
+                  document.getElementById("unitprice{{i}}").innerHTML = unitprice;
+                  var unitprice_noS = x.split("$").pop();
+                  var unitprice_int= parseFloat(unitprice_noS);
+                  var y = document.getElementById("quantity{{i}}").value;
+                  var totalprice = unitprice_int * y;
+                  document.getElementById("totalprice{{i}}").innerHTML = "$" + totalprice.toFixed(2);
+                  updateGrandPrice();
+
+                }
+
+                {% endfor %}
+
+                function updateGrandPrice() {
+                  var gt = 0;
+                  {% for i in total_lineItems %}
+                  var tp{{i}} = document.getElementById("totalprice{{i}}").innerHTML;
+                  var tp{{i}} = parseFloat(tp{{i}}.split("$").pop());
+                  gt = gt + tp{{i}};     
+                  {% endfor %}
+                  /* var gt = tp1 + tp2 + tp3 + tp4 + tp5 + tp6 + tp7 + tp8 + tp9 + tp10; */
+                  var x = document.getElementById("grand_total");
+                  gt = gt.toFixed(2);
+                  x.innerHTML = (gt<200) ? "$" + gt + " + $10.00" : "$" + gt;
+                  }
+
+                function whatsapp() {
+                  var name = document.getElementById('name').value;
+                  var contactno = document.getElementById('contactno').value;
+                  var option1 = document.getElementById('option1').value;
+                  var option2 = document.getElementById('option2').value;
+                  var option3 = document.getElementById('option3').value;
+                  var option4 = document.getElementById('option4').value;
+                  var option5 = document.getElementById('option5').value;
+                  var option6 = document.getElementById('option6').value;
+                  var option7 = document.getElementById('option7').value;
+                  var option8 = document.getElementById('option8').value;
+
+                  var quantity1 = document.getElementById('quantity1').value;  
+                  var quantity2 = document.getElementById('quantity2').value;
+                  var quantity3 = document.getElementById('quantity3').value;
+                  var quantity4 = document.getElementById('quantity4').value;
+                  var quantity5 = document.getElementById('quantity5').value;
+                  var quantity6 = document.getElementById('quantity6').value;
+                  var quantity7 = document.getElementById('quantity7').value;
+                  var quantity8 = document.getElementById('quantity8').value;
+
+                  var order;
+                  if (option1 != "nil") {
+                    order = option1 + "%0aQty:%20" + quantity1 + "%0a";
+                    if (option2 != "nil") {
+                      order = order + option2 + "%0aQty:%20" + quantity2 + "%0a";
+                      if (option3 != "nil") {
+                        order = order + option3 + "%0aQty:%20" + quantity3 + "%0a";
+                        if (option4 != "nil") {
+                          order = order + option4 + "%0aQty:%20" + quantity4 + "%0a";
+                          if (option5 != "nil") {
+                            order = order + option5 + "%0aQty:%20" + quantity5 + "%0a";
+                            if (option6 != "nil") {
+                              order = order + option6 + "%0a%20Qty:%20" + quantity6 + "%0a";
+                              if (option7 != "nil") {
+                                order = order + option7 + "%0aQty:%20" + quantity7 + "%0a";
+                                if (option8 != "nil") {
+                                  order = order + option8 + "%0aQty:%20" + quantity8 + "%0a";
+                                  
+                                    }
+                                  }  
+                                }
+                              }
+                            }  
+                          }
+                        }
+                      }
+                  var dc = document.getElementById("grand_total").innerHTML;      
+                  dc = dc.includes("+ $10.00");
+                  order = (dc=true) ? order + "*Delivery Charge $10*" + "%0a" : order;
+                  
+                  var remarks = document.getElementById('remarks').value;
+                  var address = document.getElementById('address').value;
+                  var morning = (document.getElementById('9amto12pm')).checked == true ? "(9am-12pm)" : "";
+                  var afternoon = (document.getElementById('1pmto6pm')).checked == true ? "(1pm-6pm)" : "";
+                  var evening = (document.getElementById('6pmto9pm')).checked == true ? "(6pm-9pm)" : "";
+                  
+                  var timing = morning + afternoon + evening;
+                  var deliverydate = document.getElementById('deliverydate').value;
+
+                  var email = document.getElementById("email").value;
+                  var firsttimer = document.getElementById("firsttimer").checked ? "First Time Customer" : "Regular Customer";
+                  var google = document.getElementById("google").checked ? "(Google Search:" + document.getElementById("searchterm").value + ")" : "";
+                  var agent = document.getElementById("agent").checked ? "(Agent:" + document.getElementById("agentname").value + ")" : "";    
+                  var fb = document.getElementById("facebook").checked ? "(Facebook)" : "";
+                  var insta = document.getElementById("instagram").checked ? "(Instagram)" : "";
+                  var wom = document.getElementById("wordofmouth").checked ? "(Word of Mouth)" : "";
+                  var ads = document.getElementById("ads").checked ? "(Advertising)" : "";
+                  var other = document.getElementById("others").checked ? "(Others:" + document.getElementById("othersdesc").value + ")" : "";    
+
+                  var referral = google + agent + fb + insta + wom + ads + other ;  
+
+                  var message = "*Website Order*%0a" + name + "%0a" + contactno + "%0a"+ address +  "%0a_"+  deliverydate + "_%0a_" + timing + "_%0a%0a"+ order +  "%0aRemarks:%0a*" + remarks + "*%0a" + email + "%0a" + firsttimer + "%0a" + referral ;
+                  var link = "https://api.whatsapp.com/send?phone=6581831445&text=" + message ;
+                  window.location.assign(link);
+                }
+
+                function email() {
+                  var name = document.getElementById('name').value;
+                  var contactno = document.getElementById('contactno').value;
+                  var option1 = document.getElementById('option1').value;
+                  var option2 = document.getElementById('option2').value;
+                  var option3 = document.getElementById('option3').value;
+                  var option4 = document.getElementById('option4').value;
+                  var option5 = document.getElementById('option5').value;
+                  var option6 = document.getElementById('option6').value;
+                  var option7 = document.getElementById('option7').value;
+                  var option8 = document.getElementById('option8').value;
+
+                  var quantity1 = document.getElementById('quantity1').value;  
+                  var quantity2 = document.getElementById('quantity2').value;
+                  var quantity3 = document.getElementById('quantity3').value;
+                  var quantity4 = document.getElementById('quantity4').value;
+                  var quantity5 = document.getElementById('quantity5').value;
+                  var quantity6 = document.getElementById('quantity6').value;
+                  var quantity7 = document.getElementById('quantity7').value;
+                  var quantity8 = document.getElementById('quantity8').value;
+
+                  var order;
+                  if (option1 != "nil") {
+                    order = option1 + "%0aQty:%20" + quantity1 + "%0a";
+                    if (option2 != "nil") {
+                      order = order + option2 + "%0aQty:%20" + quantity2 + "%0a";
+                      if (option3 != "nil") {
+                        order = order + option3 + "%0aQty:%20" + quantity3 + "%0a";
+                        if (option4 != "nil") {
+                          order = order + option4 + "%0aQty:%20" + quantity4 + "%0a";
+                          if (option5 != "nil") {
+                            order = order + option5 + "%0aQty:%20" + quantity5 + "%0a";
+                            if (option6 != "nil") {
+                              order = order + option6 + "%0a%20Qty:%20" + quantity6 + "%0a";
+                              if (option7 != "nil") {
+                                order = order + option7 + "%0aQty:%20" + quantity7 + "%0a";
+                                if (option8 != "nil") {
+                                  order = order + option8 + "%0aQty:%20" + quantity8 + "%0a";
+                                  
+                                    }
+                                  }  
+                                }
+                              }
+                            }  
+                          }
+                        }
+                      }
+                  var dc = document.getElementById("grand_total").innerHTML;      
+                  dc = dc.includes("+ $10.00");
+                  order = (dc==true) ? order + "*Delivery Charge $10*" + "%0a" : order;
+                  
+                  var remarks = document.getElementById('remarks').value;
+                  var address = document.getElementById('address').value;
+                  var morning = (document.getElementById('9amto12pm')).checked == true ? "(9am-12pm)" : "";
+                  var afternoon = (document.getElementById('1pmto6pm')).checked == true ? "(1pm-6pm)" : "";
+                  var evening = (document.getElementById('6pmto9pm')).checked == true ? "(6pm-9pm)" : "";
+                  
+                  var timing = morning + afternoon + evening;
+                  var deliverydate = document.getElementById('deliverydate').value;
+                  
+                  var email = document.getElementById("email").value;
+                  var firsttimer = document.getElementById("firsttimer").checked ? "First Time Customer" : "Regular Customer";
+                  var google = document.getElementById("google").checked ? "(Google Search:" + document.getElementById("searchterm").value + ")" : "";
+                  var agent = document.getElementById("agent").checked ? "(Agent:" + document.getElementById("agentname").value + ")" : "";    
+                  var fb = document.getElementById("facebook").checked ? "(Facebook)" : "";
+                  var insta = document.getElementById("instagram").checked ? "(Instagram)" : "";
+                  var wom = document.getElementById("wordofmouth").checked ? "(Word of Mouth)" : "";
+                  var ads = document.getElementById("ads").checked ? "(Advertising)" : "";
+                  var other = document.getElementById("others").checked ? "(Others:" + document.getElementById("othersdesc").value + ")" : "";    
+
+                  var referral = google + agent + fb + insta + wom + ads + other ;  
+
+                  var message = "*Website Order*%0a" + name + "%0a" + contactno + "%0a"+ address +  "%0a_"+  deliverydate + "_%0a_" + timing + "_%0a%0a"+ order +  "%0aRemarks:%0a*" + remarks + "*%0a" + email + "%0a" + firsttimer + "%0a" + referral ;
+                  var link = "mailto:info@wahyubrand.com?subject=WebsiteOrder&body=" + message ;
+                  window.location.assign(link);
+                }           
+                
+                function updateName() {
+                  var name = document.getElementById("name").value;
+                  document.getElementById("name_input").innerHTML = name;
+                }
+
+                function updateAddress() {
+                  var address = document.getElementById("address").value;
+                  document.getElementById("address_input").innerHTML = address;
+                }
+
+                             
+            </script>
+          
+{% endblock %}
