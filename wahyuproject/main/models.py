@@ -280,6 +280,7 @@ class Orders(models.Model):
         return self.line29.unitprice * self.qty29
     def line30_total(self):
         return self.line30.unitprice * self.qty30
-
+    def _str_(self):
+     return self.pk
     class Meta:
       verbose_name_plural = "Order"

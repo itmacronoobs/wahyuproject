@@ -1,16 +1,267 @@
 
  {% extends 'main/layout.html' %}
  {% load staticfiles %}
+ {% load main_extras %}
  {% block content %}
 
  <div class="container">
         {% if request.user.is_staff %}
         <h4>Welcome {{user.username}}! (<a href="{% url 'logout'%}">Logout</a>)</h4>
+        <ul class="collection with-header"> 
+        <li class="collection-header">
+            <h5>Daily Order Details ( {{time|date:"d M Y"}} 
+                {%if not_today == True%}
+                - <a href="{%url 'orders'%}">Go to Today</a>
+                {%else%}
+                - Today
+                {%endif%}
+                )
+            </h5>
+            
+        </li>
+        <li class="collection-item">
+            <div class="row">
+                <div class="col s12 m4 l4">
+                        Search:
+                        <input name="deliverydate" id="deliverydate" type="text" class="datepicker" onchange="datepicked()">
+                        <label for="deliverydate">Input Date Here</label> 
+                    </div>
+                <div class="col s12 m6 l6">
+                    
+                    Filter:<br/>
+                    <button class="btn waves-effect waves-light brown darken-1" type="submit" name="action" onclick="location.href='{%url 'orders'%}/1991/1/1'">Show all
+                    </button>
+                    <button class="btn waves-effect waves-light brown darken-1" type="submit" name="action" onclick="location.href='{%url 'orders'%}/1991/1/1'">Delivered
+                           
+                    </button>
+                    <button class="btn waves-effect waves-light brown darken-1" type="submit" name="action" onclick="location.href='{%url 'orders'%}/1991/1/1'">Confirmed
+                            
+                    </button>
+                    <button class="btn waves-effect waves-light brown darken-1" type="submit" name="action" onclick="location.href='{%url 'orders'%}/1991/1/1'">Paid
+                            
+                        </button>
+                </div>
+                
+            </div>
+        </li>
+        <li class="collection-item center-align">   
+                <h5><a href="{%url 'orders'%}/{{time|plus_days:-30|date:"Y"}}/{{time|plus_days:-30|date:"n"}}/{{time|date:"j"}}"><i class="material-icons tiny">chevron_left</i></a>{{time|date:"F Y"}}<a href="{%url 'orders'%}/{{time|plus_days:30|date:"Y"}}/{{time|plus_days:30|date:"n"}}/{{time|date:"j"}}"><i class="material-icons tiny">chevron_right</i></a></h5>
+            <ul class="pagination red lighten-3">
+                    <li class="waves-effect"><a href="{%url 'orders'%}/{{time|plus_days:-1|date:"Y"}}/{{time|plus_days:-1|date:"n"}}/{{time|plus_days:-1|date:"j"}}"><i class="material-icons">chevron_left</i></a></li>
+                    <li class="waves-effect"><a href="{%url 'orders'%}/{{time|plus_days:-2|date:"Y"}}/{{time|plus_days:-2|date:"n"}}/{{time|plus_days:-2|date:"j"}}">{{time|plus_days:-2|date:"d"}}</a></li>
+                    <li class="waves-effect"><a href="{%url 'orders'%}/{{time|plus_days:-1|date:"Y"}}/{{time|plus_days:-1|date:"n"}}/{{time|plus_days:-1|date:"j"}}">{{time|plus_days:-1|date:"d"}}</a></li>
+                    <li class="active"><a href="#!">{{time|date:"d"}}</a></li>
+                    <li class="waves-effect"><a href="{%url 'orders'%}/{{time|plus_days:1|date:"Y"}}/{{time|plus_days:1|date:"n"}}/{{time|plus_days:1|date:"j"}}">{{time|plus_days:1|date:"d"}}</a></li>
+                    <li class="waves-effect"><a href="{%url 'orders'%}/{{time|plus_days:2|date:"Y"}}/{{time|plus_days:2|date:"n"}}/{{time|plus_days:2|date:"j"}}">{{time|plus_days:2|date:"d"}}</a></li>
+                    <li class="waves-effect"><a href="{%url 'orders'%}/{{time|plus_days:1|date:"Y"}}/{{time|plus_days:1|date:"n"}}/{{time|plus_days:1|date:"j"}}"><i class="material-icons">chevron_right</i></a></li>
+            </ul>
         
+        </li>
+        <form action="{%url 'orders'%}" method="post">{% csrf_token %}
+        <li class="collection-item">
+                <table class="striped">
+                        <thead>
+                        <tr>
+                                <th>Order No:</th>
+                                <th>Customer:</th>
+                                <th>Ship-to:</th>
+                                <th>Delivery Date:</th>
+                                <th>Order Value:</th>
+                                <th>Pickup:</th>
+                                <th>Delivered:</th>
+                                <th>Cash Collect:</th>
+                                <th>Cash Confirm:</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in orders %}
 
+                        
+                        
+                        <tr>
+                                <td>{{order.pk}}</td>
+                                <td>{{order.distributor.name}}</td>
+                                <td>{{order.address}}</td>
+                                <td>{{order.preffereddate}}/{{order.prefferedtiming}}</td>
+                                <td>
+                                        {%if order.sum1 > 200%}
+                                        ${{order.sum1|floatformat:2}}
+                                        {%else%}
+                                        ${{order.sum1|floatformat:2}} + $10.00
+                                        {%endif%}
+                                </td>
+                                <td>{%if order.created_at|date:"dmy his" == order.pickuptime|date:"dmy his" %}
+                                        <p class="center-align">
+                                        <label>
+                                            <input onclick="pickup(this)" id="pickupcheck[]" name="pickupcheck[]" value="{{order.pk}}" type="checkbox"/>
+                                        <span><!--c--></span>    
+                                        </label>    
+                                        </p>
+                                    {%else%}
+                                    <p class="center-align">
+                                            <label>
+                                                <input onclick="pickup(this)" id="pickupcheck[]" name="pickupcheck[]" value="{{order.pk}}" type="checkbox" checked/>
+                                            <span><!--c--></span>    
+                                            </label>   
+                                    </p>
+                                    {%endif%}
+                                </td>
+                                <td>{%if order.created_at|date:"dmy his" == order.deliveredtime|date:"dmy his" %}
+                                        <p class="center-align">
+                                        <label>
+                                            <input onclick="deliver(this)" id="delivercheck[]" name="delivercheck[]"value="{{order.pk}}" type="checkbox"/>
+                                        <span><!--c--></span>    
+                                        </label>    
+                                        </p>
+                                    {%else%}
+                                    <p class="center-align">
+                                            <label>
+                                                <input onclick="deliver(this)" id="delivercheck[]"name="delivercheck[]" value="{{order.pk}}" type="checkbox" checked/>
+                                            <span><!--c--></span>    
+                                            </label>   
+                                    </p>
+                                    {%endif%}
+                                </td>
+                                <td>{%if order.created_at|date:"dmy his" == order.cashtime|date:"dmy his" %}
+                                        <p class="center-align">
+                                        <label>
+                                            <input onclick="casha(this)" id="cashcheck[]"name="cashcheck[]"value="{{order.pk}}" type="checkbox"/>
+                                        <span><!--c--></span>    
+                                        </label>    
+                                        </p>
+                                    {%else%}
+                                    <p class="center-align">
+                                            <label>
+                                                <input onclick="casha(this)" id="cashcheck[]"name="cashcheck[]" value="{{order.pk}}" type="checkbox" checked/>
+                                            <span><!--c--></span>    
+                                            </label>   
+                                    </p>
+                                    {%endif%}
+                                </td>
+                                <td>{%if order.created_at|date:"dmy his" == order.cashconfirmtime|date:"dmy his" %}
+                                        <p class="center-align">
+                                        <label>
+                                            <input onclick="cashc(this)" id="confirmcheck[]" value="{{order.pk}}" type="checkbox"/>
+                                        <span><!--c--></span>    
+                                        </label>    
+                                        </p>
+                                    {%else%}
+                                    <p class="center-align">
+                                            <label>
+                                                <input onclick="cashc(this)" id="confirmcheck[]" value="{{order.pk}}" type="checkbox" checked/>
+                                            <span><!--c--></span>    
+                                            </label>   
+                                    </p>
+                                    {%endif%}
+                                </td>
+                                
+                                
+                                <td><a href="{%url 'order'%}/{{order.pk}}" class="secondary-content"><i class="material-icons">send</i></a></td>
+                        </tr>
+                        
+                        
+                        {% endfor %}
+                        
+                        </tbody>
+                         
+                        
+        </table>
+        </li>
+        <li class="collection-item">
+            <div class="row">
+                <div class="input-field col s4 l6">                
+                        <input name="invoice" id="invoice" type="text" class="validate">
+                        <label for="invoice">Enter Previous Invoice No.</label>
+                </div>
+                <div class="input-field col s4 l6">                
+                        <input name="ponum" id="ponum" type="text" class="validate">
+                        <label for="ponum">Enter Previous PO No.</label>
+                </div>
+            </div>
+                <div class="section center">
+                        <button  class="btn waves-effect waves-light brown darken-1" type="submit" name="action">Print Invoice
+                            <i class="material-icons right">airport_shuttle</i>
+                        </button>                 
+                </div>
+            
+        </li>
+        </form>
+        </ul>
+    </div>
+    
         {% else %}	  
         <p>Please <a href="{%url 'login'%}">login</a> to view this page</p>
         {% endif %}
 
 </div>
+
+<script>
+    function datepicked(){
+        
+        var date = new Date(document.getElementById("deliverydate").value);
+        var month = date.getMonth() + 1;
+        var url = "{% url 'orders' %}/" + date.getFullYear() + "/" + month + "/" + date.getDate();
+        location.href = url;   
+    }
+    function pickup(sel){
+        var pk = sel.value ;
+        var check = confirm("Confirm?");
+        if (check) {
+        location.href = "{%url 'orders' %}/pickup/" + pk;
+    } else {
+            var x = document.getElementById("pickupcheck");
+            if (x.checked) {
+                x.checked = false;
+            } else {
+                x.checked = true;
+            }
+        }
+        
+    }
+    function deliver(sel){
+        var pk = sel.value ;
+        var check = confirm("Confirm?");
+        if (check) {
+        location.href = "{%url 'orders' %}/deliver/" + pk;
+    } else {
+            var x = document.getElementById("delivercheck");
+            if (x.checked) {
+                x.checked = false;
+            } else {
+                x.checked = true;
+            }
+        }
+        
+    }
+    function casha(sel){
+        var pk = sel.value ;
+        var check = confirm("Confirm?");
+        if (check) {
+            location.href = "{%url 'orders' %}/cash/" + pk;
+        } else {
+            var x = document.getElementById("cashcheck");
+            if (x.checked) {
+                x.checked = false;
+            } else {
+                x.checked = true;
+            }
+        }
+    }
+    function cashc(sel){
+        var pk = sel.value ;
+        var check = confirm("Confirm?");
+        if (check) {
+        location.href = "{%url 'orders' %}/confirm/" + pk;
+    } else {
+            var x = document.getElementById("confirmcheck");
+            if (x.checked) {
+                x.checked = false;
+            } else {
+                x.checked = true;
+            }
+        }
+        
+    }
+
+</script>
  {% endblock %}
