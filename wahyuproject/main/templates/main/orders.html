@@ -80,14 +80,16 @@
                         
                         <tr>
                                 <td>{{order.pk}}</td>
-                                <td>{{order.distributor.name}}</td>
+                                <td>{%if order.distributor.name == "Direct Sales"%}{{order.name}}{%else%}{{order.distributor.name}}{%endif%}</td>
                                 <td>{{order.address}}</td>
                                 <td>{{order.preffereddate}}/{{order.prefferedtiming}}</td>
                                 <td>
-                                        {%if order.sum1 > 200%}
-                                        ${{order.sum1|floatformat:2}}
+                                        {%if order.distributor.name == "Direct Sales" and order.sum2 < 200%}
+                                        ${{order.sum2|floatformat:2}} + $10.00
+                                        {%elif order.distributor.name == "Direct Sales" %}
+                                        ${{order.sum2|floatformat:2}}
                                         {%else%}
-                                        ${{order.sum1|floatformat:2}} + $10.00
+                                        ${{order.sum1|floatformat:2}}
                                         {%endif%}
                                 </td>
                                 <td>{%if order.created_at|date:"dmy his" == order.pickuptime|date:"dmy his" %}
@@ -170,11 +172,11 @@
         <li class="collection-item">
             <div class="row">
                 <div class="input-field col s4 l6">                
-                        <input name="invoice" id="invoice" type="text" class="validate">
+                        <input name="invoice" id="invoice" type="text" class="validate" required>
                         <label for="invoice">Enter Previous Invoice No.</label>
                 </div>
                 <div class="input-field col s4 l6">                
-                        <input name="ponum" id="ponum" type="text" class="validate">
+                        <input name="ponum" id="ponum" type="text" class="validate" required>
                         <label for="ponum">Enter Previous PO No.</label>
                 </div>
             </div>
@@ -209,7 +211,7 @@
         if (check) {
         location.href = "{%url 'orders' %}/pickup/" + pk;
     } else {
-            var x = document.getElementById("pickupcheck");
+            var x = document.getElementById("pickupcheck[]");
             if (x.checked) {
                 x.checked = false;
             } else {

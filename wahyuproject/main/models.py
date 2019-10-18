@@ -47,7 +47,7 @@ class Products (models.Model): #Products Details
 
 class Discounts (models.Model): #Discounts for customers *Routers
     name = models.CharField(max_length=200)
-    discount_given = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)])
+    discount_given = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     def __str__(self):
      return self.name
 
@@ -280,6 +280,73 @@ class Orders(models.Model):
         return self.line29.unitprice * self.qty29
     def line30_total(self):
         return self.line30.unitprice * self.qty30
+    
+    def line1_total_retail(self):
+        return self.line1.retailprice * self.qty1
+    
+    def line2_total_retail(self):
+        return self.line2.retailprice * self.qty2
+    
+    def line3_total_retail(self):
+        return self.line3.retailprice * self.qty3
+    
+    def line4_total_retail(self):
+        return self.line4.retailprice * self.qty4
+
+    def line5_total_retail(self):
+        return self.line5.retailprice * self.qty5
+
+    def line6_total_retail(self):
+        return self.line6.retailprice * self.qty6
+    def line7_total_retail(self):
+        return self.line7.retailprice * self.qty7
+    def line8_total_retail(self):
+        return self.line8.retailprice * self.qty8
+    def line9_total_retail(self):
+        return self.line9.retailprice * self.qty9
+    def line10_total_retail(self):
+        return self.line10.retailprice * self.qty10
+    def line11_total_retail(self):
+        return self.line11.retailprice * self.qty11
+    def line12_total_retail(self):
+        return self.line12.retailprice * self.qty12
+    def line13_total_retail(self):
+        return self.line13.retailprice * self.qty13
+    def line14_total_retail(self):
+        return self.line14.retailprice * self.qty14
+    def line15_total_retail(self):
+        return self.line15.retailprice * self.qty15
+    def line16_total_retail(self):
+        return self.line16.retailprice * self.qty16
+    def line17_total_retail(self):
+        return self.line17.retailprice * self.qty17
+    def line18_total_retail(self):
+        return self.line18.retailprice * self.qty18
+    def line19_total_retail(self):
+        return self.line19.retailprice * self.qty19
+    def line20_total_retail(self):
+        return self.line20.retailprice * self.qty20
+    def line21_total_retail(self):
+        return self.line21.retailprice * self.qty21
+    def line22_total_retail(self):
+        return self.line22.retailprice * self.qty22
+    def line23_total_retail(self):
+        return self.line23.retailprice * self.qty23
+    def line24_total_retail(self):
+        return self.line24.retailprice * self.qty24
+    def line25_total_retail(self):
+        return self.line25.retailprice * self.qty25
+    def line26_total_retail(self):
+        return self.line26.retailprice * self.qty26
+    def line27_total_retail(self):
+        return self.line27.retailprice * self.qty27
+    def line28_total_retail(self):
+        return self.line28.retailprice * self.qty28
+    def line29_total_retail(self):
+        return self.line29.retailprice * self.qty29
+    def line30_total_retail(self):
+        return self.line30.retailprice * self.qty30
+
     def _str_(self):
      return self.pk
     class Meta:

@@ -51,10 +51,10 @@
                                         <td>{{order.address}}</td>
                                         <td>{{order.preffereddate}}</td>
                                         <td>
-                                                {%if order.sum1 > 200%}
-                                                ${{order.sum1|floatformat:2}}
-                                                {%else%}
+                                                {%if request.user.is_staff and order.sum1 < 200%}
                                                 ${{order.sum1|floatformat:2}} + $10.00
+                                                {%else%}
+                                                ${{order.sum1|floatformat:2}}
                                                 {%endif%}
                                         </td>
                                         <td><a href="{%url 'order'%}/{{order.pk}}" class="secondary-content"><i class="material-icons">send</i></a></td>

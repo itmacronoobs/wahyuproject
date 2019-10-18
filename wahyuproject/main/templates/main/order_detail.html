@@ -16,7 +16,7 @@
                                         
                                         <input name="name" id="name" type="text" class="validate" onchange="updateName()" 
                                         
-                                        value="{{order.distributor.name}}"
+                                        value="{%if order.distributor.name == "Direct Sales"%}{{order.name}}{%else%}{{order.distributor.name}}{%endif%}"
                                         disabled
                                         >
                                         <label for="name">Full Name</label>
@@ -41,10 +41,13 @@
                 </div>
                 </li>
                 <li class="active">
-                        <div class="collapsible-header"><i class="material-icons">whatshot</i>Order ($10 Delivery Charge for orders below $200) <div style="margin-left:auto;margin-right:0;">Grand Total: <span id="grand_total">{%if order.sum1 > 200%}
-                            ${{order.sum1}}
+                        <div class="collapsible-header"><i class="material-icons">whatshot</i>Order ($10 Delivery Charge for orders below $200) <div style="margin-left:auto;margin-right:0;">Grand Total: <span id="grand_total">
+                            {%if order.distributor.name == "Direct Sales" and order.sum2 < 200 %}
+                            ${{order.sum2}} + $10.00
+                            {%elif order.distributor.name == "Direct Sales"%}
+                            ${{order.sum2}}
                             {%else%}
-                            ${{order.sum1}} + $10.00
+                            ${{order.sum1}}
                             {%endif%}
                         </span></div></div>
                         <div class="collapsible-body">
@@ -72,8 +75,13 @@
                                       </div>
                                     </td>
                                     <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty1}}" disabled disabled></td>
+                                    {% if order.distributor.name == "Direct Sales" %}
+                                    <td id="">${{order.line1.retailprice|floatformat:2}}</td>
+                                    <td id="">${{order.line1_total_retail|floatformat:2}}</td>
+                                    {%else%}
                                     <td id="">${{order.line1.unitprice|floatformat:2}}</td>
                                     <td id="">${{order.line1_total|floatformat:2}}</td>
+                                    {%endif%}
                                   </tr>
                                    {%endif%}
                                    {% if order.line2.unitprice != None %}
@@ -87,8 +95,13 @@
                                           </div>
                                         </td>
                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty2}}" disabled></td>
-                                        <td id="">${{order.line2.unitprice|floatformat:2}}</td>
-                                        <td id="">${{order.line2_total|floatformat:2}}</td>
+                                        {% if order.distributor.name == "Direct Sales" %}
+                                    <td id="">${{order.line2.retailprice|floatformat:2}}</td>
+                                    <td id="">${{order.line2_total_retail|floatformat:2}}</td>
+                                    {%else%}
+                                    <td id="">${{order.line2.unitprice|floatformat:2}}</td>
+                                    <td id="">${{order.line2_total|floatformat:2}}</td>
+                                    {%endif%}
                                       </tr>
                                       {%endif%}
                                       {% if order.line3.unitprice != None %}
@@ -102,8 +115,13 @@
                                               </div>
                                             </td>
                                             <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty3}}" disabled></td>
-                                            <td id="">${{order.line3.unitprice|floatformat:2}}</td>
-                                            <td id="">${{order.line3_total|floatformat:2}}</td>
+                                            {% if order.distributor.name == "Direct Sales" %}
+                                    <td id="">${{order.line3.retailprice|floatformat:2}}</td>
+                                    <td id="">${{order.line3_total_retail|floatformat:2}}</td>
+                                    {%else%}
+                                    <td id="">${{order.line3.unitprice|floatformat:2}}</td>
+                                    <td id="">${{order.line3_total|floatformat:2}}</td>
+                                    {%endif%}
                                           </tr>
                                           {%endif%}
                                           {% if order.line4.unitprice != None %}
@@ -117,8 +135,13 @@
                                                   </div>
                                                 </td>
                                                 <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty4}}" disabled></td>
-                                                <td id="">${{order.line4.unitprice|floatformat:2}}</td>
-                                                <td id="">${{order.line4_total|floatformat:2}}</td>
+                                                {% if order.distributor.name == "Direct Sales" %}
+                                    <td id="">${{order.line4.retailprice|floatformat:2}}</td>
+                                    <td id="">${{order.line4_total_retail|floatformat:2}}</td>
+                                    {%else%}
+                                    <td id="">${{order.line4.unitprice|floatformat:2}}</td>
+                                    <td id="">${{order.line4_total|floatformat:2}}</td>
+                                    {%endif%}
                                               </tr>
                                               {%endif%}
                                               {% if order.line5.unitprice != None %}
@@ -132,8 +155,14 @@
                                                       </div>
                                                     </td>
                                                     <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty5}}" disabled></td>
+                                                    {% if order.distributor.name == "Direct Sales" %}
+                                                    <td id="">${{order.line5.retailprice|floatformat:2}}</td>
+                                                    <td id="">${{order.line5_total_retail|floatformat:2}}</td>
+                                                    {%else%}
                                                     <td id="">${{order.line5.unitprice|floatformat:2}}</td>
                                                     <td id="">${{order.line5_total|floatformat:2}}</td>
+                                                    {%endif%}
+                
                                                   </tr>
                                                   {%endif%}
                                                   {% if order.line6.unitprice != None %}
@@ -147,9 +176,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty6}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line6.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line6_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line6.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line6_total|floatformat:2}}</td>
-                                                      </tr>
+                                                        {%endif%}
+                                                                          </tr>
                                                       {%endif%}
                                                       {% if order.line7.unitprice != None %}
                                                   <tr>
@@ -162,9 +196,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty7}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line7.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line7_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line7.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line7_total|floatformat:2}}</td>
-                                                      </tr>
+                                                        {%endif%}
+                                                                          </tr>
                                                       {%endif%}
                                                       {% if order.line8.unitprice != None %}
                                                   <tr>
@@ -177,8 +216,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty8}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line8.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line8_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line8.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line8_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line9.unitprice != None %}
@@ -192,8 +237,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty9}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line9.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line9_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line9.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line9_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line10.unitprice != None %}
@@ -207,8 +258,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty10}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line10.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line10_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line10.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line10_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line11.unitprice != None %}
@@ -222,8 +279,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty11}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line11.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line11_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line11.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line11_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line12.unitprice != None %}
@@ -237,8 +300,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty12}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line12.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line12_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line12.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line12_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line13.unitprice != None %}
@@ -252,8 +321,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty13}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line13.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line13_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line13.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line13_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line14.unitprice != None %}
@@ -267,8 +342,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty14}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line14.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line14_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line14.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line14_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line15.unitprice != None %}
@@ -282,8 +363,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty15}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line15.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line15_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line15.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line15_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line16.unitprice != None %}
@@ -297,8 +384,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty16}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line16.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line16_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line16.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line16_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line17.unitprice != None %}
@@ -312,8 +405,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty17}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line17.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line17_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line17.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line17_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line18.unitprice != None %}
@@ -327,8 +426,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty18}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line18.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line18_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line18.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line18_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line19.unitprice != None %}
@@ -342,8 +447,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty19}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line19.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line19_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line19.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line19_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line20.unitprice != None %}
@@ -357,8 +468,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty20}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line20.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line20_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line20.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line20_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line21.unitprice != None %}
@@ -372,8 +489,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty21}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line21.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line21_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line21.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line21_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line22.unitprice != None %}
@@ -387,8 +510,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty22}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line22.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line22_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line22.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line22_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line23.unitprice != None %}
@@ -402,8 +531,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty23}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line23.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line23_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line23.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line23_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line24.unitprice != None %}
@@ -417,8 +552,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty24}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line24.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line24_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line24.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line24_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line25.unitprice != None %}
@@ -432,8 +573,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty25}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line25.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line25_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line25.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line25_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line26.unitprice != None %}
@@ -447,8 +594,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty26}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line26.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line26_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line26.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line26_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line27.unitprice != None %}
@@ -462,8 +615,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty27}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line27.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line27_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line27.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line27_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line28.unitprice != None %}
@@ -477,8 +636,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty28}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line28.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line28_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line28.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line28_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line29.unitprice != None %}
@@ -492,8 +657,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty29}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line29.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line29_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line29.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line29_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                                       {% if order.line30.unitprice != None %}
@@ -507,8 +678,14 @@
                                                           </div>
                                                         </td>
                                                         <td><input type="number" name="qty{{i}}" id="quantity{{i}}" placeholder="0" min="0" onchange="f_option{{i}}();" value="{{order.qty30}}" disabled></td>
+                                                        {% if order.distributor.name == "Direct Sales" %}
+                                                        <td id="">${{order.line30.retailprice|floatformat:2}}</td>
+                                                        <td id="">${{order.line30_total_retail|floatformat:2}}</td>
+                                                        {%else%}
                                                         <td id="">${{order.line30.unitprice|floatformat:2}}</td>
                                                         <td id="">${{order.line30_total|floatformat:2}}</td>
+                                                        {%endif%}
+                    
                                                       </tr>
                                                       {%endif%}
                                 </tbody>

@@ -22,7 +22,7 @@
         
         <div class="parallax"><img src="{% static "img/tanushree-rao-1172284-unsplash.jpg" %}" height="900px" alt="Unsplashed background img 3"></div>
       </div>
-      <form action="{%url 'order' %}" method="post">
+      <form action="{%url 'order' %}" method="post" onsubmit="return formcheck()">
       {% csrf_token %}
       <div class="container">
           <div class="section no-pad-bot">
@@ -68,15 +68,15 @@
                                     {%else%}
                                     <div class="input-field col s4">
                                         
-                                        <input name="name" id="name" type="text" class="validate" onchange="updateName()">
+                                        <input name="name" id="name" type="text" class="validate" onchange="updateName()" required>
                                         <label for="name">Full Name</label>
                                       </div>
                                       <div class="input-field col s4">
-                                        <input name="contactno" id="contactno" type="text" class="validate">
+                                        <input name="contactno" id="contactno" type="text" class="validate" required>
                                         <label for="contactno">Contact No.</label>
                                       </div>
                                       <div class="input-field col s4">
-                                              <input name="email" id="email" type="email" class="validate">
+                                              <input name="email" id="email" type="email" class="validate" required>
                                               <label for="email">Email</label>
                                             </div>
                                     {%endif%}
@@ -87,7 +87,7 @@
                   </div>
                 </li>
                 <li class="active">
-                  <div class="collapsible-header"><i class="material-icons">whatshot</i>Order ($10 Delivery Charge for orders below $200) <div style="margin-left:auto;margin-right:0;">Grand Total: <span id="grand_total">$0.00</span></div></div>
+                  <div class="collapsible-header"><i class="material-icons">whatshot</i>Order {% if not user.is_authenticated or request.user.is_staff %}($10 Delivery Charge for orders below $200){%endif%} <div style="margin-left:auto;margin-right:0;">Grand Total: <span id="grand_total">$0.00</span></div></div>
                   <div class="collapsible-body">
                       <div style="max-height:400px;overflow:auto;">
                       <table class="striped highlight">
@@ -216,7 +216,7 @@
                               </div>
                               <div class="col s6">
                                 <h5>Preffered Delivery Date</h5>
-                                <input name="deliverydate" id="deliverydate" type="text" class="datepicker">
+                                <input name="deliverydate" id="deliverydate" type="text" class="datepicker" required/>
                                 <label for="deliverydate">Input Date Here</label>  
                               </div>
                         </div> 
@@ -270,9 +270,19 @@
             var instance = M.Collapsible.init(elem, {
                 accordion: false
             });
+            {% if request.user.is_staff %}
             {% for product in products %}                                                        
             $('.browser-default').append('<option value="{{product.pk}}">{{product.category.name}} | {{product.name}} {{product.unitnetweight}}g/${{product.retailprice|floatformat:2}}</option>');
             {% endfor %}
+            {% elif user.is_authenticated %}
+            {% for product in products %}                                                        
+            $('.browser-default').append('<option value="{{product.pk}}">{{product.category.name}} | {{product.name}} {{product.unitnetweight}}g/${{product.unitprice|floatformat:2}}</option>');
+            {% endfor %}
+            {% else %}
+            {% for product in products %}                                                        
+            $('.browser-default').append('<option value="{{product.pk}}">{{product.category.name}} | {{product.name}} {{product.unitnetweight}}g/${{product.retailprice|floatformat:2}}</option>');
+            {% endfor %}
+            {%endif%}
         });
       </script>
       <script>
@@ -299,6 +309,54 @@
             }
             </script>
             <script>
+
+                function formcheck(){
+                  var check = 0;
+                  {%for i in total_lineItems%}
+
+                    var e = document.getElementById("option{{i}}");
+                    var x = document.getElementById("quantity{{i}}");
+                    
+                    check = check + e.options[e.selectedIndex].value;
+                    if (e.options[e.selectedIndex].value != 0) {
+                        if (x.value == 0) {
+                          alert("Form Error! Line Number: " + {{i}} + " has no input quantity");
+                          return false;
+                        }
+                    } 
+
+                  {%endfor%}
+
+                  if (check == 0) {
+                    alert("You have not chosen any products! Choose one of the options above and input quantity.");
+                    return false;
+                  }
+                  var morning = (document.getElementById('9amto12pm')).checked == true ? 1 : 0;
+                  var afternoon = (document.getElementById('1pmto6pm')).checked == true ? 1 : 0;
+                  var evening = (document.getElementById('6pmto9pm')).checked == true ? 1 : 0;
+                  if (morning+afternoon+evening == 0) {
+                    alert("You have not chosen a preffered time! Choose one of the above checkboxes!")
+                    return false;
+                  }
+
+                  var y = document.getElementById("deliverydate");
+
+                  if (y.value == 0) {
+                    alert("You have not chosen a preffered delivery date! Choose a date above!");
+                    return false;
+                  }
+
+                  var z = document.getElementById("name").value;
+                  var a = document.getElementById("contactno").value;
+                  var b = document.getElementById("email").value;
+
+                  if (z == null || a == null || b== null || z == "" || a == "" || b== "") {
+                  alert("Error, contact information incomplete. Please Check: \nName: " + z + " \nContact No: " + a + " \nEmail: " + b);
+                  return false;
+                  }
+
+                  return true;
+                }
                 {% for i in total_lineItems %}
 
                 function f_option{{i}}() {
@@ -327,7 +385,11 @@
                   /* var gt = tp1 + tp2 + tp3 + tp4 + tp5 + tp6 + tp7 + tp8 + tp9 + tp10; */
                   var x = document.getElementById("grand_total");
                   gt = gt.toFixed(2);
+                  {% if not user.is_authenticated or request.user.is_staff %}
                   x.innerHTML = (gt<200) ? "$" + gt + " + $10.00" : "$" + gt;
+                  {%else%}
+                  x.innerHTML = "$" + gt;
+                  {%endif%}
                   }
 
                 function whatsapp() {
