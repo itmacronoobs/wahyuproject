@@ -95,14 +95,14 @@
                                 <td>{%if order.created_at|date:"dmy his" == order.pickuptime|date:"dmy his" %}
                                         <p class="center-align">
                                         <label>
-                                            <input onclick="pickup(this)" id="pickupcheck[]" name="pickupcheck[]" value="{{order.pk}}" type="checkbox"/>
+                                            <input onclick="pickup(this)" id="pickupcheck[]" name="pickupcheck[]" class="pickupcheck{{order.pk}}" value="{{order.pk}}" type="checkbox"/>
                                         <span><!--c--></span>    
                                         </label>    
                                         </p>
                                     {%else%}
                                     <p class="center-align">
                                             <label>
-                                                <input onclick="pickup(this)" id="pickupcheck[]" name="pickupcheck[]" value="{{order.pk}}" type="checkbox" checked/>
+                                                <input onclick="pickup(this)" id="pickupcheck[]" name="pickupcheck[]" class="pickupcheck{{order.pk}}" value="{{order.pk}}" type="checkbox" checked/>
                                             <span><!--c--></span>    
                                             </label>   
                                     </p>
@@ -111,14 +111,14 @@
                                 <td>{%if order.created_at|date:"dmy his" == order.deliveredtime|date:"dmy his" %}
                                         <p class="center-align">
                                         <label>
-                                            <input onclick="deliver(this)" id="delivercheck[]" name="delivercheck[]"value="{{order.pk}}" type="checkbox"/>
+                                            <input onclick="deliver(this)" id="delivercheck[]" name="delivercheck[]" class="delivercheck{{order.pk}}"value="{{order.pk}}" type="checkbox"/>
                                         <span><!--c--></span>    
                                         </label>    
                                         </p>
                                     {%else%}
                                     <p class="center-align">
                                             <label>
-                                                <input onclick="deliver(this)" id="delivercheck[]"name="delivercheck[]" value="{{order.pk}}" type="checkbox" checked/>
+                                                <input onclick="deliver(this)" id="delivercheck[]" name="delivercheck[]" class="delivercheck{{order.pk}}" value="{{order.pk}}" type="checkbox" checked/>
                                             <span><!--c--></span>    
                                             </label>   
                                     </p>
@@ -127,14 +127,14 @@
                                 <td>{%if order.created_at|date:"dmy his" == order.cashtime|date:"dmy his" %}
                                         <p class="center-align">
                                         <label>
-                                            <input onclick="casha(this)" id="cashcheck[]"name="cashcheck[]"value="{{order.pk}}" type="checkbox"/>
+                                            <input onclick="casha(this)" id="cashcheck[]" name="cashcheck[]" class="cashcheck{{order.pk}}" value="{{order.pk}}" type="checkbox"/>
                                         <span><!--c--></span>    
                                         </label>    
                                         </p>
                                     {%else%}
                                     <p class="center-align">
                                             <label>
-                                                <input onclick="casha(this)" id="cashcheck[]"name="cashcheck[]" value="{{order.pk}}" type="checkbox" checked/>
+                                                <input onclick="casha(this)" id="cashcheck[]" name="cashcheck[]" class="cashcheck{{order.pk}}" value="{{order.pk}}" type="checkbox" checked/>
                                             <span><!--c--></span>    
                                             </label>   
                                     </p>
@@ -207,11 +207,12 @@
     }
     function pickup(sel){
         var pk = sel.value ;
+        var name = "pickupcheck".concat(pk.toString());
         var check = confirm("Confirm?");
         if (check) {
-        location.href = "{%url 'orders' %}/pickup/" + pk;
+        location.href = "{%url 'orders' %}/pickup/" + pk + "/";
     } else {
-            var x = document.getElementById("pickupcheck[]");
+            var x = document.getElementsByClassName(name)[0];
             if (x.checked) {
                 x.checked = false;
             } else {
@@ -222,11 +223,12 @@
     }
     function deliver(sel){
         var pk = sel.value ;
+        var name = "delivercheck".concat(pk.toString());
         var check = confirm("Confirm?");
         if (check) {
-        location.href = "{%url 'orders' %}/deliver/" + pk;
+        location.href = "{%url 'orders' %}/deliver/" + pk + "/";
     } else {
-            var x = document.getElementById("delivercheck");
+            var x = document.getElementsByClassName(name)[0];
             if (x.checked) {
                 x.checked = false;
             } else {
@@ -237,11 +239,12 @@
     }
     function casha(sel){
         var pk = sel.value ;
+        var name = "cashcheck".concat(pk.toString());
         var check = confirm("Confirm?");
         if (check) {
-            location.href = "{%url 'orders' %}/cash/" + pk;
+            location.href = "{%url 'orders' %}/cash/" + pk + "/";
         } else {
-            var x = document.getElementById("cashcheck");
+            var x = document.getElementsByClassName(name)[0];
             if (x.checked) {
                 x.checked = false;
             } else {
@@ -251,11 +254,12 @@
     }
     function cashc(sel){
         var pk = sel.value ;
+        var name = "confirmcheck".concat(pk.toString());
         var check = confirm("Confirm?");
         if (check) {
-        location.href = "{%url 'orders' %}/confirm/" + pk;
+        location.href = "{%url 'orders' %}/confirm/" + pk + "/";
     } else {
-            var x = document.getElementById("confirmcheck");
+            var x = document.getElementsByClassName(name)[0];
             if (x.checked) {
                 x.checked = false;
             } else {

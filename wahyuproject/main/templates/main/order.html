@@ -15,7 +15,7 @@
               {% if user.is_authenticated %}
               <p>(Max. 30 line items per order) <a href="{% url 'logout' %}">Logout</a></p>
               {% else %}
-              <p>For Suppliers, please login here: <a href="{% url 'login' %}" class=""> Login </a></p>
+              <p>For Wholesalers, please login here: <a href="{% url 'login' %}" class=""> Login </a></p>
               {%endif%}
             </div>
           </div>
@@ -230,7 +230,7 @@
 
       <div class="container">
         <div class="section center">
-            <button  class="btn waves-effect waves-light brown darken-1" type="submit" name="action">Order Now
+            <button  class="btn waves-effect waves-light brown darken-1" type="submit" name="action">Order Now {%if not user.is_authenticated%}(Cash on Delivery Only){%endif%}
                 <i class="material-icons right">airport_shuttle</i>
             </button>                  
         </div>
@@ -272,15 +272,15 @@
             });
             {% if request.user.is_staff %}
             {% for product in products %}                                                        
-            $('.browser-default').append('<option value="{{product.pk}}">{{product.category.name}} | {{product.name}} {{product.unitnetweight}}g/${{product.retailprice|floatformat:2}}</option>');
+            $('.browser-default').append('<option value="{{product.pk}}">{{product.subcategory.name}} | {{product.name}} {{product.unitnetweight}}g / ${{product.retailprice|floatformat:2}}</option>');
             {% endfor %}
             {% elif user.is_authenticated %}
             {% for product in products %}                                                        
-            $('.browser-default').append('<option value="{{product.pk}}">{{product.category.name}} | {{product.name}} {{product.unitnetweight}}g/${{product.unitprice|floatformat:2}}</option>');
+            $('.browser-default').append('<option value="{{product.pk}}">{{product.subcategory.name}} | {{product.name}} {{product.unitnetweight}}g / ${{product.unitprice|floatformat:2}}</option>');
             {% endfor %}
             {% else %}
             {% for product in products %}                                                        
-            $('.browser-default').append('<option value="{{product.pk}}">{{product.category.name}} | {{product.name}} {{product.unitnetweight}}g/${{product.retailprice|floatformat:2}}</option>');
+            $('.browser-default').append('<option value="{{product.pk}}">{{product.subcategory.name}} | {{product.name}} {{product.unitnetweight}}g / ${{product.retailprice|floatformat:2}}</option>');
             {% endfor %}
             {%endif%}
         });

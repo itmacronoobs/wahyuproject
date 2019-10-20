@@ -1,0 +1,54 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container">
+
+{% if user.is_authenticated %}
+<h3>You have already registered, click <a href="{%url 'index'%}">here</a> here to go back!</h3>
+
+{% else %}
+
+
+
+<form action="{%url 'supplier_register' %}" method="post">{% csrf_token %}
+
+        <ul class="collection with-header">  
+
+                <li class="collection-header"><h3>Register as Wholesaler below!</h3><p>Our team will contact you as soon as possible once you have completed the form below, for urgent requests, please call <a href="https://wa.me/6569108515">+65 87171300</a></p></li>
+                <li class="collection-item">
+                <div class="row">
+                        <div class="input-field col s1 m6 l6">
+                                <input name="companyname" id="companyname" type="text" class="validate" required>
+                                <label for="companyname">Company Name:</label>
+                              </div>
+                    <div class="input-field col s1 m6 l6">
+                        <input name="CompanyAddress" id="CompanyAddress" type="text" class="validate" required>
+                        <label for="CompanyAddress">Company Address:</label>
+                      </div>
+                      
+                    <div class="input-field col s1 m6 l6">
+                        <input name="ContactName" id="ContactName" type="text" class="validate" required>
+                        <label for="ContactName">Contact Name:</label>
+                        </div>
+                        <div class="input-field col s1 m6 l6">
+                            <input name="ContactNo" id="ContactNo" type="text" class="validate" required>
+                            <label for="ContactNo">Contact No:</label>
+                            </div>
+                
+            </div>
+            </li>   
+        </ul>
+        <div class="container">
+                <div class="section center">
+                    <button  class="btn waves-effect waves-light brown darken-1" type="submit" name="action">Register Now!
+                        <i class="material-icons right">airport_shuttle</i>
+                    </button>                  
+                </div>
+              </div>
+</form>
+
+{%endif%}
+</div>
+{% endblock %}
