@@ -33,19 +33,37 @@
                   <div class="collapsible-body">
                                 
                                   <div class="row">
+                                    {%if request.user.is_staff%}
+                                    <div class="valign-wrapper">
+                                      <div class="col s3 ">
+                                        Choose Customer:
+                                      </div>
+                                      <div class="col s9">
+                                          <select name="customerselect" id="customerselect" onchange="customerselector();">
+                                              <option value="Direct Sales" selected>Direct Sales</option>
+                                              {%for dist in dist%}
+                                              {% if dist.name != "Direct Sales"%}
+                                              <option value="{{dist.username.username}}/{{dist.bill2contact_number}}/{{dist.email}}/{{dist.ship2address.address}}" selected>{{dist.name}}</option>
+                                              {%endif%}
+                                              {%endfor%}
+                                            </select>
+                                      </div>
+                                    </div>
+                                    {%endif%}
                                       {% if user.is_authenticated %}
-                                    <div class="input-field col s4">
-                                        
+                                    <div class="input-field col s4 m4 l4">
+                                      
                                       <input name="name" id="name" type="text" class="validate" onchange="updateName()" 
                                       {%for dist in dist%}
                                       {% if dist.username.username == user.username %}
-                                      value="{{dist.name}}"
+                                      value="{{dist.username.username}}"
                                       {% endif %}
                                       {%endfor%}
                                       >
+                                      
                                       <label for="name">Full Name</label>
                                     </div>
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s4 m4 l4">
                                       <input name="contactno" id="contactno" type="text" class="validate"
                                       {%for dist in dist%}
                                       {% if dist.username.username == user.username %}
@@ -55,7 +73,7 @@
                                       >
                                       <label for="contactno">Contact No.</label>
                                     </div>
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s4 m4 l4">
                                             <input name="email" id="email" type="email" class="validate"
                                             {%for dist in dist%}
                                             {% if dist.username.username == user.username %}
@@ -66,7 +84,7 @@
                                             <label for="email">Email</label>
                                           </div>
                                     {%else%}
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s4 m4 l4">
                                         
                                         <input name="name" id="name" type="text" class="validate" onchange="updateName()" required>
                                         <label for="name">Full Name</label>
@@ -310,6 +328,15 @@
             </script>
             <script>
 
+                function customerselector() {
+                  var customer = document.getElementById("customerselect").value;
+                  customer = customer.split("/")
+                  document.getElementById("name").value = customer[0];
+                  document.getElementById("contactno").value = customer[1];
+                  document.getElementById("email").value = customer[2];
+                  document.getElementById("address").value = customer[3];
+                }
+
                 function formcheck(){
                   var check = 0;
                   {%for i in total_lineItems%}
@@ -374,6 +401,8 @@
                 }
 
                 {% endfor %}
+
+                
 
                 function updateGrandPrice() {
                   var gt = 0;
@@ -555,6 +584,8 @@
                   var address = document.getElementById("address").value;
                   document.getElementById("address_input").innerHTML = address;
                 }
+
+                
 
                              
             </script>

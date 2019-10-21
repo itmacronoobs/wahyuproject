@@ -35,6 +35,8 @@ def order(request):
     category = Category.objects.all
     products = Products.objects.all
     dist = Distributors.objects.all
+    current_dist = Distributors.objects.filter(username__username=request.user.username)
+
     orders = Orders.objects.all
 
     if request.method == 'POST':
@@ -48,7 +50,13 @@ def order(request):
 
         message = "Dear " + request.POST.get("name") + ", \nYour Order Details Below:\n\n"
         if request.user.is_authenticated:
-            neworder.distributor = Distributors.objects.get(username=request.user)
+            if request.user.is_staff:
+                if request.POST.get("customerselect") != "Direct Sales":
+                    neworder.distributor = Distributors.objects.get(username__username=request.POST.get('name'))
+                else:
+                    neworder.distributor = Distributors.objects.get(username__username="wahyu")
+            else:
+                neworder.distributor = Distributors.objects.get(username=request.user)
         else:
             neworder.distributor = Distributors.objects.get(username__username="wahyu")
         try:
@@ -407,6 +415,7 @@ def order(request):
             'categories' : category,
             'products' : products,
             'dist' : dist,
+            'current_dist' : current_dist,
             'orders' : orders,
             'total_lineItems' : range(1,31)
         }
